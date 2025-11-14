@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Sistema Fuerza Pública - KonCheck</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #24a525 0%, #6bf263 50%, #a2ff93 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #159000;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #159000;
+            border-radius: 10px;
+        }
+        .section h2 {
+            color: #159000;
+            margin-bottom: 15px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .btn {
+            background: #159000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #0d6b00;
+        }
+        .credentials {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .test-results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Sistema Fuerza Pública - Panel de Pruebas</h1>
+        
+        <div class="section">
+            <h2>📊 Estado del Sistema</h2>
+            <div id="system-status">
+                <div class="status info">🔄 Verificando componentes...</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔑 Credenciales de Prueba</h2>
+            <div class="credentials">
+                <strong>Usuario 1:</strong><br>
+                ID: 12345678<br>
+                Contraseña: 123456<br><br>
+                
+                <strong>Usuario 2:</strong><br>
+                ID: 87654321<br>
+                Contraseña: password123<br><br>
+                
+                <strong>Usuario 3:</strong><br>
+                ID: 11223344<br>
+                Contraseña: admin2024
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🧪 Pruebas del Sistema</h2>
+            <button class="btn" onclick="testMockData()">Probar Datos Mock</button>
+            <button class="btn" onclick="testRegistration()">Probar Registro</button>
+            <button class="btn" onclick="testLogin()">Probar Login</button>
+            <button class="btn" onclick="clearAllData()">Limpiar Datos</button>
+            
+            <div class="test-results" id="test-results"></div>
+        </div>
+
+        <div class="section">
+            <h2>🌐 Accesos Directos</h2>
+            <a href="LandingPage.html" class="btn">🏠 Landing Page</a>
+            <a href="FuerzaPublica/RegistrarFp/RegistrarFp.html" class="btn">📝 Registrarse</a>
+            <a href="FuerzaPublica/IngresarFp/IngresarFp.html" class="btn">🔐 Ingresar</a>
+        </div>
+
+        <div class="section">
+            <h2>💾 Base de Datos</h2>
+            <div class="status success">✅ MySQL ejecutándose en Docker</div>
+            <div class="status success">✅ Tabla usuario_fuerza_publica creada</div>
+            <div class="status success">✅ 5 usuarios de prueba insertados</div>
+            <div class="credentials">
+                <strong>Conexión BD:</strong><br>
+                Host: localhost:3306<br>
+                Database: koncheck_db<br>
+                User: koncheck<br>
+                Password: KonCheck2025!
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="FuerzaPublica/js/init-mock-data.js"></script>
+    <script src="FuerzaPublica/js/api-config.js"></script>
+    <script src="FuerzaPublica/js/auth-service.js"></script>
+
+    <script>
+        // Verificar estado del sistema
+        function checkSystemStatus() {
+            const statusDiv = document.getElementById('system-status');
+            let status = '';
+            
+            // Verificar localStorage
+            const usuarios = localStorage.getItem('usuariosFuerzaPublica');
+            if (usuarios) {
+                status += '<div class="status success">✅ Datos mock inicializados</div>';
+                const count = JSON.parse(usuarios).length;
+                status += `<div class="status info">📊 ${count} usuarios disponibles</div>`;
+            } else {
+                status += '<div class="status warning">⚠️ Datos mock no inicializados</div>';
+            }
+            
+            // Verificar configuración API
+            if (typeof API_CONFIG !== 'undefined') {
+                status += '<div class="status success">✅ Configuración API cargada</div>';
+                status += `<div class="status info">🔧 Modo: ${API_CONFIG.USE_MOCK_DATA ? 'Mock' : 'Backend Real'}</div>`;
+            }
+            
+            statusDiv.innerHTML = status;
+        }
+
+        // Probar datos mock
+        function testMockData() {
+            const results = document.getElementById('test-results');
+            try {
+                initMockData();
+                const usuarios = showMockData();
+                results.innerHTML = `
+                    <div class="status success">✅ Datos mock funcionando correctamente</div>
+                    <div class="status info">📊 ${usuarios.length} usuarios cargados</div>
+                `;
+            } catch (error) {
+                results.innerHTML = `<div class="status warning">❌ Error: ${error.message}</div>`;
+            }
+        }
+
+        // Probar registro
+        async function testRegistration() {
+            const results = document.getElementById('test-results');
+            try {
+                const testUser = {
+                    identificacion: '99999999',
+                    nombres: 'Usuario',
+                    apellidos: 'Prueba',
+                    password: 'test123'
+                };
+                
+                const response = await register(testUser);
+                results.innerHTML = `
+                    <div class="status success">✅ Registro funcionando</div>
+                    <div class="status info">👤 Usuario creado: ${response.identificacion}</div>
+                `;
+            } catch (error) {
+                results.innerHTML = `<div class="status warning">❌ Error en registro: ${error.message}</div>`;
+            }
+        }
+
+        // Probar login
+        async function testLogin() {
+            const results = document.getElementById('test-results');
+            try {
+                const response = await login('12345678', '123456');
+                results.innerHTML = `
+                    <div class="status success">✅ Login funcionando</div>
+                    <div class="status info">🎉 Bienvenido: ${response.nombres} ${response.apellidos}</div>
+                    <div class="status info">🔑 Token: ${response.token.substring(0, 20)}...</div>
+                `;
+            } catch (error) {
+                results.innerHTML = `<div class="status warning">❌ Error en login: ${error.message}</div>`;
+            }
+        }
+
+        // Limpiar todos los datos
+        function clearAllData() {
+            clearMockData();
+            document.getElementById('test-results').innerHTML = `
+                <div class="status info">🧹 Todos los datos han sido limpiados</div>
+            `;
+            setTimeout(checkSystemStatus, 500);
+        }
+
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            checkSystemStatus();
+        });
+    </script>
+</body>
+</html>

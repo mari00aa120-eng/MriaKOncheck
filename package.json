@@ -1,0 +1,22 @@
+{
+  "name": "koncheck-sistema",
+  "version": "1.0.0",
+  "description": "Sistema KonCheck para Fuerza Pública",
+  "main": "backend-simple.js",
+  "scripts": {
+    "start": "node backend-simple.js",
+    "dev": "node backend-simple.js",
+    "test": "node test-conexion.js",
+    "test-db": "node test-db-connection.js"
+  },
+  "dependencies": {
+    "mysql2": "^3.15.3"
+  },
+  "keywords": [
+    "koncheck",
+    "fuerza-publica",
+    "autenticacion"
+  ],
+  "author": "KonCheck Team",
+  "license": "MIT"
+}

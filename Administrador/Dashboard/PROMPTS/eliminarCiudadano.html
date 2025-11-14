@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eliminar Ciudadano - KonCheck</title>
+  <style>
+    /* ====== General ====== */
+    body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #F1F1F1; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .ventana { background-color: #F1F1F1; width: 700px; display: flex; flex-direction: column; align-items: center; padding: 40px 30px; position: relative; }
+    .logo-container { display: flex; align-items: center; gap: 10px; position: absolute; top: 25px; left: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 8px 12px; border-radius: 10px; background-color: #fff; }
+    .logo-container img { height: 40px; }
+    .logo-container h2 { color: #0097d0; font-size: 20px; margin: 0; }
+    .contenido { margin-top: 70px; display: flex; align-items: center; justify-content: center; gap: 40px; }
+    .contenido img[src*="AD_SORPRENDIDO_PROMPT.png"] { width: 190px; height: auto; transform: translateX(-35px); }
+    .texto { text-align: center; }
+    .texto h1 { color: #00a2d3; font-size: 30px; margin-bottom: 10px; }
+    .texto p { font-size: 18px; color: #333; margin-bottom: 35px; }
+    .botones { display: flex; justify-content: center; gap: 40px; }
+    .boton { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 25px; border: none; border-radius: 25px; font-size: 17px; font-weight: 600; color: #fff; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.2); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .boton:hover { transform: scale(1.05); box-shadow: 0 4px 8px rgba(0,0,0,0.25); }
+    .boton.si { background-color: #28a745; }
+    .boton.no { background-color: #c82333; }
+    .boton img { width: 18px; height: 18px; filter: brightness(0) invert(1); }
+  </style>
+</head>
+<body>
+  <div class="ventana">
+    <div class="logo-container">
+      <img src="../../../Assets/LOGOPROMPT.png" alt="Logo KonCheck">
+      <h2>KonCheck</h2>
+    </div>
+
+    <div class="contenido">
+      <img src="../../../Assets/AD_SORPRENDIDO_PROMPT.png" alt="Administrador sorprendido">
+      <div class="texto">
+        <h1>Eliminar Ciudadano</h1>
+        <p id="textoConfirm">¿Estás seguro que deseas eliminar el ciudadano?</p>
+        <div class="botones">
+          <button class="boton si" id="btnSi">
+            SI
+            <img src="../../../Assets/chulitoBlanco.svg" alt="Icono check">
+          </button>
+          <button class="boton no" id="btnNo">
+            No
+            <img src="../../../Assets/xBlanca.svg" alt="Icono X">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Enviar mensaje al padre cuando se elija SI o NO
+    const btnSi = document.getElementById('btnSi');
+    const btnNo = document.getElementById('btnNo');
+    const textoConfirm = document.getElementById('textoConfirm');
+
+    // Intentar mostrar info del ciudadano (si existe en localStorage del parent)
+    try {
+      // Si el iframe comparte el mismo origen, podemos leer localStorage aquí. Si no, esto fallará por seguridad y lo dejamos en el mensaje genérico.
+      const idx = localStorage.getItem('ciudadanoIndex');
+      const lista = JSON.parse(localStorage.getItem('ciudadanos') || '[]');
+      if (idx !== null) {
+        const i = parseInt(idx, 10);
+        if (!isNaN(i) && lista[i]) {
+          const c = lista[i];
+          textoConfirm.textContent = `¿Eliminar a ${c.nombres} ${c.apellidos} (ID: ${c.identificacion})? Esta acción no se puede deshacer.`;
+        }
+      }
+    } catch (e) {
+      // si no se puede acceder (cross-origin), se mantiene el texto genérico
+    }
+
+    btnSi.addEventListener('click', () => {
+      // enviar acción al padre para que haga la eliminación
+      window.parent.postMessage({ action: 'eliminar' }, '*');
+    });
+
+    btnNo.addEventListener('click', () => {
+      window.parent.postMessage({ action: 'cancel' }, '*');
+    });
+
+    // También permitir cerrar si el padre lo solicita (opcional)
+    window.addEventListener('message', (ev) => {
+      if (ev.data && ev.data.action === 'close') {
+        // noop: el padre cerrará el overlay si quiere
+      }
+    });
+  </script>
+</body>
+</html>

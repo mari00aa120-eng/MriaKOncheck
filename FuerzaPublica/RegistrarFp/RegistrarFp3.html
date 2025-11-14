@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro Fuerza Pública - KonCheck</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+ 
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: #f5f5f5;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh; /* 🔹 Permite que crezca más si se necesita */
+      width: 100vw;
+    }
+
+    .left-panel {
+      flex: 1;
+      background: url("../../Assets/FONDOINGRESAR-FP.png") no-repeat center center;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      padding: 60px;
+      position: relative;
+    }
+
+    .left-panel img {
+      width: 60px;
+      height: 60px;
+    }
+
+    .left-panel h1 {
+      font-weight: 700;
+      font-size: 2rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7), -1px -1px 2px rgba(255,255,255,0.2);
+    }
+
+    .left-panel .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: -500px;
+      margin-left: -280px;
+    }
+
+    .volver-link {
+      color: #159000;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      margin-right: 180px;
+    }
+
+    .volver-link:hover {
+      color: #0d6b00;
+    }
+
+    .botones-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 5px;
+      margin-bottom: 80px; /* 🔹 Más espacio para equilibrar la parte inferior */
+    }
+
+    .side-tabs {
+      position: absolute;
+      left: calc(25% - 16px);
+      top: 30%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+      pointer-events: none;
+    }
+
+    .side-tab {
+      pointer-events: auto;
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      border-radius: 12px;
+      padding: 10px 26px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .side-tab.registro {
+      background: #ffffff;
+      color: #159000;
+      border: none;
+      width: 220px;
+      margin-left: 100px;
+      box-shadow: none;
+    }
+
+    .side-tab.ingresar {
+      background: transparent;
+      color: #ffffff;
+      margin-left: 100px;
+      padding: 10px 40px;
+    }
+
+    .right-panel {
+      flex: 1.4;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 60px 100px 100px; /* 🔹 más espacio inferior */
+      color: #159000;
+      position: relative;
+    }
+
+    .steps-container {
+      width: 100%;
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .steps-line {
+      width: 100%;
+      height: 4px;
+      background: #159000;
+      position: relative;
+      top: 36px;
+      z-index: 1;
+      border-radius: 2px;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 80%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-number {
+      background: #159000;
+      color: white;
+      font-weight: 700;
+      font-size: 1.6rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 6px rgba(0,0,0,0.2);
+    }
+
+    .step-complete {
+      background-color: #0d6b00;
+    }
+
+    .right-panel h1 {
+      color: #159000;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    .right-panel h2 {
+      color: #159000;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .avatar {
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .avatar img {
+      width: 200px;
+      height: auto;
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    form {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 28px;
+      width: 100%;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: black;
+      font-size: 18px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      border: none;
+      border-bottom: 2px solid black;
+      outline: none;
+      font-size: 16px;
+      color: black;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #159000;
+      color: #159000;
+    }
+
+    .error-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: red;
+      font-size: 18px;
+      display: none;
+    }
+
+    .error-icon.show { display: block; }
+
+    .input-group.error input { border-color: red; }
+    .input-group.valid input { border-color: #159000; }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-message.show { display: block; }
+
+    .btn-completar {
+      background-color: #159000;
+      color: #fff;
+      border: none;
+      padding: 14px 36px;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    .btn-completar:hover:not(:disabled) {
+      background-color: #18a000;
+      transform: scale(1.05);
+    }
+
+    .btn-completar:disabled {
+      background-color: #b3b3b3;
+      cursor: not-allowed;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div class="brand">
+        <div class="logo">
+          <img src="../../Assets/LOGOINGRESAR.png" alt="KonCheck logo" />
+        </div>
+        <h1>KonCheck</h1>
+      </div>
+
+
+    </div>
+
+    <div class="side-tabs">
+      <a href="../IngresarFp/IngresarFp.html" class="side-tab ingresar">Ingresar</a>
+      <a href="#" class="side-tab registro">Registro</a>
+    </div>
+
+    <div class="right-panel">
+      <h1>REGISTRO</h1>
+
+      <div class="steps-container">
+        <div class="steps-line"></div>
+        <div class="steps">
+          <div class="step-number">1</div>
+          <div class="step-number">2</div>
+          <div class="step-number">3</div>
+        </div>
+      </div>
+
+      <h2>Información Registro</h2>
+
+      <div class="avatar">
+        <img id="admin-avatar" src="../../Assets/POLICIACORREO copy 2.png" alt="Avatar Administrador" />
+      </div>
+
+      <form id="registro-form">
+        <div class="input-group" id="email-group">
+          <i>📧</i>
+          <input type="email" id="email-input" placeholder="Correo Electrónico" required />
+          <span class="error-icon" id="email-error">❗</span>
+        </div>
+        <div class="error-message" id="email-message"></div>
+
+        <div class="input-group" id="password-group">
+          <i>🔒</i>
+          <input type="password" id="password-input" placeholder="Contraseña" required />
+          <span class="error-icon" id="password-error">❗</span>
+        </div>
+        <div class="error-message" id="password-message"></div>
+
+        <div class="botones-container">
+          <a href="RegistrarFp2.html" class="volver-link">&lt; Anterior</a>
+          <button type="button" id="btn-completar" class="btn-completar" disabled>Completar ></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:3001';
+    const emailInput = document.getElementById('email-input');
+    const passwordInput = document.getElementById('password-input');
+    const btnCompletar = document.getElementById('btn-completar');
+    const emailGroup = document.getElementById('email-group');
+    const passwordGroup = document.getElementById('password-group');
+    const emailError = document.getElementById('email-error');
+    const passwordError = document.getElementById('password-error');
+    const emailMessage = document.getElementById('email-message');
+    const passwordMessage = document.getElementById('password-message');
+    const avatar = document.getElementById('admin-avatar');
+    const basePath = "../../Assets/";
+    const steps = document.querySelectorAll('.steps .step-number');
+
+    emailInput.value = sessionStorage.getItem('email') || '';
+    passwordInput.value = sessionStorage.getItem('password') || '';
+
+    function validarCorreo(correo) {
+      const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.(com|co|edu\.co)$/;
+      if (!regex.test(correo)) return { valido: false, mensaje: 'Formato inválido (.com, .co o .edu.co)' };
+      if (correo.length > 40) return { valido: false, mensaje: 'Máximo 40 caracteres' };
+      return { valido: true, mensaje: '' };
+    }
+
+    function validarContrasena(pass) {
+      if (pass.length < 6 || pass.length > 10) return { valido: false, mensaje: '6-10 caracteres' };
+      if (!/[A-Z]/.test(pass)) return { valido: false, mensaje: 'Debe tener al menos una mayúscula' };
+      if (!/[a-z]/.test(pass)) return { valido: false, mensaje: 'Debe tener al menos una minúscula' };
+      if (!/[0-9]/.test(pass)) return { valido: false, mensaje: 'Debe tener al menos un número' };
+      return { valido: true, mensaje: '' };
+    }
+
+    function actualizarBoton() {
+      btnCompletar.disabled = !(validarCorreo(emailInput.value).valido && validarContrasena(passwordInput.value).valido);
+    }
+
+    function actualizarPasos() {
+      steps[0].classList.toggle('step-complete', validarCorreo(emailInput.value).valido);
+      steps[1].classList.toggle('step-complete', validarContrasena(passwordInput.value).valido);
+    }
+
+    emailInput.addEventListener('input', () => {
+      const value = emailInput.value;
+      if (value === '') {
+        emailGroup.className = 'input-group';
+        emailError.classList.remove('show');
+        emailMessage.classList.remove('show');
+      } else {
+        const result = validarCorreo(value);
+        emailGroup.className = result.valido ? 'input-group valid' : 'input-group error';
+        emailError.classList.toggle('show', !result.valido);
+        emailMessage.textContent = result.mensaje;
+        emailMessage.classList.toggle('show', !result.valido);
+      }
+      sessionStorage.setItem('email', value);
+      actualizarBoton();
+      actualizarPasos();
+    });
+
+    passwordInput.addEventListener('input', () => {
+      const value = passwordInput.value;
+      if (value === '') {
+        passwordGroup.className = 'input-group';
+        passwordError.classList.remove('show');
+        passwordMessage.classList.remove('show');
+      } else {
+        const result = validarContrasena(value);
+        passwordGroup.className = result.valido ? 'input-group valid' : 'input-group error';
+        passwordError.classList.toggle('show', !result.valido);
+        passwordMessage.textContent = result.mensaje;
+        passwordMessage.classList.toggle('show', !result.valido);
+      }
+      sessionStorage.setItem('password', value);
+      actualizarBoton();
+      actualizarPasos();
+    });
+
+    emailInput.addEventListener('focus', () => avatar.src = basePath + "POLICIACORREO.png");
+    passwordInput.addEventListener('focus', () => avatar.src = basePath + "POLICIACONTRASEÑA.png");
+
+    btnCompletar.addEventListener('click', async () => {
+      if (btnCompletar.disabled) return;
+      btnCompletar.textContent = "Registrando...";
+      btnCompletar.disabled = true;
+
+      try {
+        // Recopilar todos los datos del registro
+        const datosRegistro = {
+          identificacion: sessionStorage.getItem('identificacion'),
+          nombres: sessionStorage.getItem('nombres'),
+          apellidos: sessionStorage.getItem('apellidos'),
+          password: passwordInput.value,
+          correo: emailInput.value,
+          fecha_nacimiento: sessionStorage.getItem('fecha_nacimiento'),
+          lugar_nacimiento: sessionStorage.getItem('lugar_nacimiento'),
+          rh: sessionStorage.getItem('rh'),
+          fecha_expedicion: sessionStorage.getItem('fecha_expedicion'),
+          lugar_expedicion: sessionStorage.getItem('lugar_expedicion'),
+          estatura: sessionStorage.getItem('estatura'),
+          estado_judicial: sessionStorage.getItem('estado_judicial') || 'No Requerido',
+          rango: sessionStorage.getItem('rango')
+        };
+
+        // Validar que todos los datos estén presentes
+        if (!datosRegistro.identificacion || !datosRegistro.nombres || !datosRegistro.apellidos || !datosRegistro.password) {
+          alert('❌ Faltan datos del registro. Por favor completa todos los pasos.');
+          btnCompletar.textContent = "Completar >";
+          btnCompletar.disabled = false;
+          return;
+        }
+
+        // Enviar a la base de datos real usando Node.js
+        const response = await fetch('http://localhost:3001/api/auth/fuerza-publica/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(datosRegistro)
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          steps[2].classList.add('step-complete');
+          alert('✅ Registro exitoso en la base de datos. Ahora puedes iniciar sesión con tu número de identificación: ' + datosRegistro.identificacion);
+          sessionStorage.clear();
+          window.location.href = '../IngresarFp/IngresarFp.html';
+        } else {
+          alert('❌ ' + (data.error || 'Error al registrar usuario'));
+          btnCompletar.textContent = "Completar >";
+          btnCompletar.disabled = false;
+        }
+        
+      } catch (err) {
+        console.error('Error:', err);
+        alert('❌ Error de conexión. Verifica que XAMPP esté funcionando.');
+        btnCompletar.textContent = "Completar >";
+        btnCompletar.disabled = false;
+      }
+    });
+
+    actualizarBoton();
+    actualizarPasos();
+  </script>
+
+  <!-- Script para redirección de logos -->
+  <script src="../js/logo-redirect.js"></script>
+</body>
+
+</html>

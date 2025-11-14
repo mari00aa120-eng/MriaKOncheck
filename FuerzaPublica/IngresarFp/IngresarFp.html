@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KonCheck - Ingresar</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ====== ESTILOS GENERALES ====== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background: #fff;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ====== PANEL IZQUIERDO ====== */
+    .left-panel {
+      flex: 1;
+      background: url("../../Assets/FONDOINGRESAR-FP.png") no-repeat center center;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 40px;
+    }
+
+    .left-panel img {
+      width: 60px;
+      height: 60px;
+    }
+
+    .left-panel h1 {
+      font-weight: 700;
+      font-size: 2rem;
+      text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.7),
+        -1px -1px 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .left-panel .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: -500px;
+      margin-left: -280px;
+    }
+
+    /* ====== PANEL DERECHO ====== */
+    .right-panel {
+      flex: 1.2;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 120px;
+    }
+
+    .titulo {
+      color: #159000;
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+      font-weight: 700;
+      margin-left: 250px;
+      margin-top: -120px;
+    }
+
+    /* ====== SECCIÓN ROLES ====== */
+    .rol-section {
+      margin-bottom: 28px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .rol-section p {
+      color: #000;
+      font-weight: 400;
+      margin-bottom: 30px;
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+
+    .rol-options {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* ====== RADIOS ====== */
+    .rol-options input[type="radio"] {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      margin-right: 8px;
+      vertical-align: middle;
+      background-color: #fff;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      appearance: none;
+      outline: none;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .rol-options input[type="radio"]:checked {
+      background-color: #fff;
+    }
+
+    .rol-fuerza input[type="radio"]:checked {
+      border-color: #00b33c;
+    }
+
+    .rol-admin input[type="radio"]:checked {
+      border-color: #0066cc;
+    }
+
+    .rol-options input[type="radio"]:focus {
+      outline: 2px solid #ffffff;
+      background-color: #fff;
+    }
+
+    .rol-options input[type="radio"]::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #00b33c;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .rol-options input[type="radio"]:checked::before {
+      opacity: 1;
+    }
+
+    .rol-fuerza input[type="radio"]::before {
+      background: #00b33c;
+    }
+
+    .rol-admin input[type="radio"]::before {
+      background: #0066cc;
+    }
+
+    .rol-fuerza,
+    .rol-admin {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .rol-fuerza span,
+    .rol-admin span {
+      color: #000;
+      font-size: 1rem;
+      font-weight: 350;
+    }
+
+    /* ====== FORMULARIO ====== */
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      font-size: 18px;
+      opacity: .9;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      border: none;
+      border-bottom: 2px solid #ddd;
+      outline: none;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .input-group input:focus {
+      border-color: #159000;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      display: block;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .forgot {
+      color: #159000;
+      font-weight: 550;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 15px;
+      margin-top: 80px;
+    }
+
+    .btn-ingresar {
+      background-color: #159000;
+      color: #fff;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-left: 240px;
+      margin-top: 80px;
+    }
+
+    .btn-ingresar:hover {
+      background-color: #ffffff;
+      color: #159000;
+      border: 2px solid #000000;
+      box-shadow: 0 0 6px rgba(0, 158, 190, 0.4);
+    }
+
+    form#loginForm {
+      margin-top: 40px;
+    }
+
+    /* ====== BOTONES LATERALES ====== */
+    .container {
+      position: relative;
+    }
+
+    .side-tabs {
+      position: absolute;
+      left: calc(25% - 16px);
+      top: 30%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+      pointer-events: none;
+    }
+
+    .side-tab {
+      pointer-events: auto;
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      border-radius: 12px;
+      padding: 10px 26px;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.06);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .side-tab.ingresar {
+      background: #ffffff;
+      color: #159000;
+      border: none;
+      width: 220px;
+      margin-left: 100px;
+      box-shadow: none;
+    }
+
+    .side-tab.ingresar:hover {
+      transform: translateY(-2px);
+    }
+
+    .side-tab.registro {
+      background: transparent;
+      color: #ffffff;
+      margin-left: 100px;
+      padding: 10px 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div class="brand">
+        <div class="logo">
+          <img src="../../Assets/LOGOINGRESAR.png" alt="KonCheck logo" />
+        </div>
+        <h1>KonCheck</h1>
+      </div>
+    </div>
+
+    <div class="side-tabs" aria-hidden="false">
+      <a href="#" class="side-tab ingresar" role="button" aria-label="Ingresar">Ingresar</a>
+      <a href="../../FuerzaPublica/RegistrarFp/RegistrarFp.html" class="side-tab registro" role="button"
+        aria-label="Registro">Registro</a>
+    </div>
+
+    <div class="right-panel">
+      <h1 class="titulo">INGRESAR</h1>
+
+      <div class="rol-section" role="radiogroup" aria-label="Selecciona tu rol">
+        <p style="color:#00b33c !important;">Selecciona tu rol</p>
+        <div class="rol-options">
+          <label class="rol-fuerza">
+            <input type="radio" name="rol" value="fuerza" checked aria-checked="true" />
+            <span>Fuerza Pública</span>
+          </label>
+          <label class="rol-admin">
+            <input type="radio" name="rol" value="admin" aria-checked="false" />
+            <span>Administrador</span>
+          </label>
+        </div>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <div class="input-group">
+          <span class="icon">👤</span>
+          <input type="text" id="idFuerza" name="idFuerza" placeholder="Id Fuerza (10 dígitos)" maxlength="10"
+            required />
+          <small class="error" id="idError"></small>
+        </div>
+
+        <div class="input-group">
+          <span class="icon">🔒</span>
+          <input type="password" id="password" name="password" placeholder="Contraseña" required />
+          <small class="error" id="passError"></small>
+        </div>
+
+        <div class="actions">
+          <a href="../Dashboard/ReestablecerContrasena/reestablecerContrasena.html" class="forgot">¿Olvidaste la
+            contraseña?</a>
+          <button id="btnIngresar" type="submit" class="btn-ingresar">Ingresar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====== SCRIPTS ====== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const radios = document.querySelectorAll('input[name="rol"]');
+      radios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          if (!e.target.checked) return;
+          if (e.target.value === 'admin') {
+            window.location.href = './../../Administrador/IngresarAd/IngresarAd.html';
+          } else {
+            window.location.href = '../../FuerzaPublica/IngresarFp/IngresarFp.html';
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- ====== SCRIPTS DE SERVICIOS ====== -->
+  <script src="../js/init-mock-data.js"></script>
+  <script src="../js/api-config.js"></script>
+  <script src="../js/auth-service.js"></script>
+
+  <!-- Script para redirección de logos -->
+  <script src="../js/logo-redirect.js"></script>
+
+  <!-- ====== VALIDACIÓN DE LOGIN ====== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnIngresar = document.getElementById('btnIngresar');
+      const idInput = document.getElementById('idFuerza');
+      const passInput = document.getElementById('password');
+      const idError = document.getElementById('idError');
+      const passError = document.getElementById('passError');
+
+      btnIngresar.addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        // Limpia mensajes previos
+        idError.textContent = "";
+        passError.textContent = "";
+
+        const idValue = idInput.value.trim();
+        const passValue = passInput.value.trim();
+        let valid = true;
+
+        // Validación de ID (exactamente 10 dígitos)
+        const idRegex = /^[0-9]{10}$/;
+        if (!idRegex.test(idValue)) {
+          idError.textContent = "Ingrese un número de identificación válido (exactamente 10 dígitos).";
+          valid = false;
+        }
+
+        // Validación de contraseña (simplificada para demo)
+        if (!passValue) {
+          passError.textContent = "La contraseña es requerida.";
+          valid = false;
+        }
+
+        // Si pasa validación, intenta login
+        if (valid) {
+          try {
+            btnIngresar.disabled = true;
+            btnIngresar.textContent = "Ingresando...";
+
+            // Conectar al servidor Node.js
+            const response = await fetch('http://localhost:3001/api/auth/fuerza-publica/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                identificacion: idValue,
+                password: passValue
+              })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+              // Login exitoso, redirigir a la base de datos
+              alert('✅ Ingreso exitoso. Bienvenido ' + data.nombres + ' ' + data.apellidos + '\n\nTe llevaremos a la base de datos...');
+              window.location.href = "http://localhost/phpmyadmin/index.php?route=/sql&db=koncheck_db&table=usuario_fuerza_publica&pos=0";
+            } else {
+              throw new Error(data.error || 'Credenciales inválidas');
+            }
+
+          } catch (error) {
+            console.error('Error en login:', error);
+            passError.textContent = error.message || "Credenciales inválidas. Verifique su identificación y contraseña.";
+          } finally {
+            btnIngresar.disabled = false;
+            btnIngresar.textContent = "Ingresar";
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>

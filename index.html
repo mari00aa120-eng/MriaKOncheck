@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KonCheck - Sistema Funcionando</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #24a525 0%, #6bf263 50%, #a2ff93 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 600px;
+        }
+        h1 {
+            color: #159000;
+            margin-bottom: 20px;
+        }
+        .status {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #c3e6cb;
+        }
+        .btn {
+            background: #159000;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #0d6b00;
+        }
+        .credentials {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 KonCheck - Sistema Funcionando</h1>
+        
+        <div class="status">
+            ✅ Servidor ejecutándose correctamente<br>
+            ✅ Base de datos MySQL activa<br>
+            ✅ Sistema Fuerza Pública operativo
+        </div>
+
+        <div class="credentials">
+            <h3>🔑 Credenciales de Prueba:</h3>
+            <strong>ID:</strong> 12345678<br>
+            <strong>Password:</strong> 123456<br><br>
+            
+            <strong>ID:</strong> 87654321<br>
+            <strong>Password:</strong> password123
+        </div>
+
+        <div>
+            <a href="LandingPage.html" class="btn">🏠 Landing Page</a>
+            <a href="FuerzaPublica/IngresarFp/IngresarFp.html" class="btn">🔐 Ingresar</a>
+            <a href="FuerzaPublica/RegistrarFp/RegistrarFp.html" class="btn">📝 Registrarse</a>
+            <a href="test-sistema.html" class="btn">🧪 Pruebas</a>
+        </div>
+
+        <div style="margin-top: 30px; font-size: 14px; color: #666;">
+            <p>Si ves esta página, el servidor está funcionando correctamente.</p>
+            <p>URL: <strong>http://localhost:8000</strong></p>
+        </div>
+    </div>
+</body>
+</html>

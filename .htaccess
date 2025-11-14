@@ -1,0 +1,19 @@
+Options +Indexes
+AllowOverride All
+Require all granted
+
+<Files "*.php">
+    Require all granted
+</Files>
+
+<Files "*.html">
+    Require all granted
+</Files>
+
+<Files "*.js">
+    Require all granted
+</Files>
+
+<Files "*.css">
+    Require all granted
+</Files>

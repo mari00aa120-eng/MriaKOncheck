@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - KonCheck</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .main-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      background-color: #00839a;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #00839a;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      color: white;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 45px;
+      height: 45px;
+    }
+
+    .app-name {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.1;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), -1px -1px 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .menu-button {
+      background-color: white;
+      color: #00839a;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 35px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      width: fit-content;
+      margin-top: 30px;
+      transition: background-color 0.3s ease;
+      margin-left: 70px;
+    }
+
+    .menu-button .icon {
+      margin-left: -10px;
+    }
+
+    .menu-button:hover {
+      background-color: #e5e5e5;
+    }
+
+    .logout {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      align-self: flex-start;
+      margin-top: auto;
+      transition: opacity 0.3s ease;
+      margin-left: 50px;
+      font-weight: 600;
+    }
+
+    .logout:hover {
+      opacity: 0.8;
+    }
+
+    .content {
+      flex: 1;
+      background-color: white;
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+      margin: 20px 20px 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-icon {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      font-size: 30px;
+      color: black;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 95%;
+      margin: 30px auto 30px auto;
+    }
+
+    .header-box {
+      flex: 1;
+      background-color: #00839a;
+      color: #fff;
+      padding: 15px 30px;
+      border-radius: 20px;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 85px;
+    }
+
+    .profile-icon {
+      font-size: 42px;
+      color: #000;
+      cursor: pointer;
+      margin-top: 9px;
+    }
+
+    .search-section {
+      width: 95%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .search-bar {
+      position: relative;
+      margin-right: 300px;
+      flex: 1;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 12px 45px 12px 20px;
+      border: 2px solid #ccc;
+      border-radius: 30px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .search-bar input:focus {
+      border-color: #00839a;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #555;
+      pointer-events: none;
+    }
+
+    .new-btn {
+      background-color: #00839a;
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .new-btn:hover {
+      background-color: #006b7f;
+      transform: translateY(-2px);
+    }
+
+    .section-title {
+      margin: 30px 0 0 40px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .registro-box {
+      width: 95%;
+      min-height: 400px;
+      margin: 15px auto 40px auto;
+      background-color: #fff;
+      border: 1.5px solid #dcdcdc;
+      border-radius: 15px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+      padding: 20px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .registro-box:hover {
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .tabla-contenedor {
+      max-height: 400px;
+      overflow-y: auto;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .tabla-ciudadanos {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: "Segoe UI", sans-serif;
+      font-size: 15px;
+    }
+
+    .tabla-ciudadanos thead {
+      background: #f5f5f5;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .tabla-ciudadanos th,
+    .tabla-ciudadanos td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .tabla-ciudadanos th {
+      font-weight: bold;
+    }
+
+    .tabla-ciudadanos tbody tr:nth-child(even) {
+      background: #fafafa;
+    }
+
+    .estado {
+      font-weight: 600;
+    }
+
+    .estado.requerido {
+      color: #d40000;
+    }
+
+    .estado.no-requerido {
+      color: #1a7a1a;
+    }
+
+    .acciones {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .acciones button {
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+      background: transparent;
+    }
+
+    .btn-editar {
+      background: #00b050;
+      color: #fff;
+      border-radius: 6px;
+      padding: 6px 10px;
+    }
+
+    .btn-editar:hover {
+      background: #009245;
+      transform: scale(1.05);
+    }
+
+    .btn-eliminar {
+      background: #d32f2f;
+      color: #fff;
+      border-radius: 6px;
+      padding: 6px 10px;
+    }
+
+    .btn-eliminar:hover {
+      background: #b71c1c;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 900px) {
+      .search-section {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .search-bar {
+        margin-right: 0;
+      }
+
+      .menu-button {
+        margin-left: 20px;
+      }
+
+      .logout {
+        margin-left: 20px;
+      }
+    }
+
+    /* Overlay styles (dinámico creado por JS) */
+    .kc-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .kc-overlay .kc-iframe {
+      width: 760px;
+      max-width: calc(100% - 40px);
+      height: 460px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      background: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-container">
+    <!-- Panel izquierdo azul -->
+    <div class="sidebar">
+      <div>
+        <div class="logo-section">
+          <img src="../../Assets/LOGOINGRESAR.png" alt="KonCheck logo" class="logo" />
+          <h2 class="app-name">KonCheck</h2>
+        </div>
+        <button class="menu-button" type="button">
+          <span class="icon">🔒 </span> Ciudadanos
+        </button>
+      </div>
+      <a href="../../LandingPage.html" class="logout">Cerrar Sesión</a>
+    </div>
+
+    <!-- Panel blanco derecho -->
+    <div class="content">
+      <div class="top-bar">
+        <div class="header-box">Gestión de Ciudadanos</div>
+        <div class="profile-icon">👤</div>
+      </div>
+
+      <div class="search-section">
+        <div class="search-bar">
+          <input id="searchInput" type="text" placeholder="Buscar por identificación, nombre o apellido..." />
+          <span class="search-icon">🔍</span>
+        </div>
+        <button id="btnNuevo" class="new-btn" type="button">Nuevo Ciudadano</button>
+      </div>
+
+      <h2 class="section-title">Registro de Ciudadanos</h2>
+
+      <div class="registro-box">
+        <div class="tabla-contenedor">
+          <table class="tabla-ciudadanos" id="tablaCiudadanos">
+            <thead>
+              <tr>
+                <th>Identificación</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Fecha Nacimiento</th>
+                <th>Lugar Nacimiento</th>
+                <th>Estado Judicial</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Filas dinámicas -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Comportamiento:
+     - Usa localStorage key "ciudadanos".
+     - Al editar guardamos "ciudadanoSeleccionado" y "ciudadanoIndex".
+     - Al eliminar guardamos "ciudadanoIndex" antes de mostrar prompt overlay.
+     - Comunicación con el prompt vía postMessage.
+    */
+    (function () {
+      const ejemplos = [
+        { identificacion: "1088765432", nombres: "Juan", apellidos: "Pérez", fechaNacimiento: "1990-05-20", lugarNacimiento: "Bogotá", estadoJudicial: "No Requerido" },
+        { identificacion: "1054223781", nombres: "María", apellidos: "Gómez", fechaNacimiento: "1988-02-10", lugarNacimiento: "Medellín", estadoJudicial: "Requerido" },
+        { identificacion: "1092345876", nombres: "Carlos", apellidos: "Rodríguez", fechaNacimiento: "1992-09-15", lugarNacimiento: "Cali", estadoJudicial: "No Requerido" }
+      ];
+
+      if (!localStorage.getItem('ciudadanos')) {
+        localStorage.setItem('ciudadanos', JSON.stringify(ejemplos));
+      }
+
+      const tablaBody = document.querySelector('#tablaCiudadanos tbody');
+      const searchInput = document.getElementById('searchInput');
+      const btnNuevo = document.getElementById('btnNuevo');
+
+      function cargarCiudadanos() {
+        const lista = JSON.parse(localStorage.getItem('ciudadanos')) || [];
+        tablaBody.innerHTML = '';
+        lista.forEach((c, index) => {
+          const tr = document.createElement('tr');
+
+          const tdId = document.createElement('td'); tdId.textContent = formatoIdentificacion(c.identificacion); tr.appendChild(tdId);
+          const tdNombres = document.createElement('td'); tdNombres.textContent = c.nombres; tr.appendChild(tdNombres);
+          const tdApellidos = document.createElement('td'); tdApellidos.textContent = c.apellidos; tr.appendChild(tdApellidos);
+          const tdFn = document.createElement('td'); tdFn.textContent = c.fechaNacimiento; tr.appendChild(tdFn);
+          const tdLn = document.createElement('td'); tdLn.textContent = c.lugarNacimiento; tr.appendChild(tdLn);
+
+          const tdEstado = document.createElement('td');
+          const spanEstado = document.createElement('span');
+          spanEstado.className = 'estado ' + (c.estadoJudicial === 'Requerido' ? 'requerido' : 'no-requerido');
+          spanEstado.textContent = (c.estadoJudicial === 'Requerido' ? '🔴 Requerido' : '🟢 No Requerido');
+          tdEstado.appendChild(spanEstado);
+          tr.appendChild(tdEstado);
+
+          const tdAcc = document.createElement('td'); tdAcc.className = 'acciones';
+
+          const btnEditar = document.createElement('button');
+          btnEditar.className = 'btn-editar';
+          btnEditar.type = 'button';
+          btnEditar.setAttribute('aria-label', 'Editar ' + c.identificacion);
+          btnEditar.textContent = '✏️';
+          btnEditar.addEventListener('click', () => {
+            localStorage.setItem('ciudadanoSeleccionado', JSON.stringify(c));
+            localStorage.setItem('ciudadanoIndex', String(index));
+            window.location.href = '../editarCiudadano/editarCiudadano.html';
+          });
+          tdAcc.appendChild(btnEditar);
+
+          const btnEliminar = document.createElement('button');
+          btnEliminar.className = 'btn-eliminar';
+          btnEliminar.type = 'button';
+          btnEliminar.setAttribute('aria-label', 'Eliminar ' + c.identificacion);
+          btnEliminar.textContent = '🗑️';
+          btnEliminar.addEventListener('click', () => {
+            // Guardar index para que el prompt sepa qué eliminar
+            localStorage.setItem('ciudadanoIndex', String(index));
+            // Mostrar overlay con prompt (ruta relativa)
+            mostrarOverlayIframe('PROMPTS/eliminarCiudadano.html');
+          });
+          tdAcc.appendChild(btnEliminar);
+
+          tr.appendChild(tdAcc);
+          tablaBody.appendChild(tr);
+        });
+      }
+
+      function formatoIdentificacion(id) {
+        const s = String(id).replace(/\D/g, '');
+        if (!s) return id;
+        return s.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+
+      // --- Overlay / iframe logic ---
+      let overlayEl = null;
+      function mostrarOverlayIframe(path) {
+        // Ya existe overlay?
+        if (overlayEl) return;
+
+        overlayEl = document.createElement('div');
+        overlayEl.className = 'kc-overlay';
+        overlayEl.innerHTML = `<iframe class="kc-iframe" src="${path}" title="Eliminar ciudadano"></iframe>`;
+        document.body.appendChild(overlayEl);
+
+        // Cerrar si hace click fuera del iframe
+        overlayEl.addEventListener('click', (ev) => {
+          if (ev.target === overlayEl) {
+            cerrarOverlay();
+          }
+        });
+
+        // Cerrar con Esc
+        const escHandler = (ev) => {
+          if (ev.key === 'Escape') cerrarOverlay();
+        };
+        document.addEventListener('keydown', escHandler);
+
+        // Limpieza al cerrar
+        overlayEl._cleanup = () => {
+          document.removeEventListener('keydown', escHandler);
+        };
+      }
+
+      function cerrarOverlay() {
+        if (!overlayEl) return;
+        if (overlayEl._cleanup) overlayEl._cleanup();
+        overlayEl.remove();
+        overlayEl = null;
+      }
+
+      // Escuchar mensajes desde el iframe prompt
+      window.addEventListener('message', (ev) => {
+        // NOTA: en producción validar ev.origin para seguridad
+        const data = ev.data;
+        if (!data || !data.action) return;
+
+        if (data.action === 'eliminar') {
+          // obtener index guardado
+          const idxStr = localStorage.getItem('ciudadanoIndex');
+          const idx = idxStr !== null ? parseInt(idxStr, 10) : NaN;
+          const lista = JSON.parse(localStorage.getItem('ciudadanos')) || [];
+          if (!isNaN(idx) && idx >= 0 && idx < lista.length) {
+            lista.splice(idx, 1);
+            localStorage.setItem('ciudadanos', JSON.stringify(lista));
+            // opcional: limpiar ciudadanoSeleccionado si coincide
+            localStorage.removeItem('ciudadanoSeleccionado');
+            localStorage.removeItem('ciudadanoIndex');
+            cargarCiudadanos();
+          } else {
+            // si no encontró, solo recarga
+            cargarCiudadanos();
+          }
+          cerrarOverlay();
+        } else if (data.action === 'cancel') {
+          // solo cerrar overlay y no hacer cambios
+          cerrarOverlay();
+        }
+      });
+
+      // Búsqueda con debounce
+      let debounceTimer = null;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          const term = e.target.value.toLowerCase().trim();
+          filtrarTabla(term);
+        }, 200);
+      });
+
+      function filtrarTabla(term) {
+        const rows = tablaBody.querySelectorAll('tr');
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          row.style.display = text.includes(term) ? '' : 'none';
+        });
+      }
+
+      // Nuevo ciudadano
+      btnNuevo.addEventListener('click', () => {
+        window.location.href = '../crearCiudadano/crearCiudadano.html';
+      });
+
+      // Sincronizar entre pestañas
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'ciudadanos') cargarCiudadanos();
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        cargarCiudadanos();
+      });
+    })();
+  </script>
+</body>
+
+</html>

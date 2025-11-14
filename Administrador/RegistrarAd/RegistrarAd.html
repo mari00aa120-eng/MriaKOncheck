@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro Administrador - KonCheck</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ====== ESTILOS GENERALES ====== */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+    html, body { height: 100%; width: 100%; background: #f5f5f5; }
+    .container { display: flex; height: 100vh; width: 100vw; }
+
+    /* ====== PANEL IZQUIERDO (COPIA EXACTA) ====== */
+    .left-panel {
+      flex: 1;
+      background: url("../../Assets/FONDOINGRESAR-AD.png") no-repeat center center;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      padding: 60px;
+    }
+
+    .left-panel img {
+      width: 60px;
+      height: 60px;
+    }
+
+    .left-panel h1 {
+      font-weight: 700;
+      font-size: 2rem;
+      text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.7),
+        -1px -1px 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .left-panel .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: -500px;
+      margin-left: -280px;
+    }
+
+    /* ====== BOTONES LATERALES (COPIA EXACTA) ====== */
+    .container {
+      position: relative;
+    }
+
+    .side-tabs {
+      position: absolute;
+      left: calc(25% - 16px);
+      top: 30%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+      pointer-events: none;
+    }
+
+    .side-tab {
+      pointer-events: auto;
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      border-radius: 12px;
+      padding: 10px 26px;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.06);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .side-tab.registro {
+      background: #ffffff;
+      color: #009EBE;
+      border: none;
+      width: 220px;
+      margin-left: 100px;
+      box-shadow: none;
+    }
+
+    .side-tab.registro:hover {
+      transform: translateY(-2px);
+    }
+
+    .side-tab.ingresar {
+      background: transparent;
+      color: #ffffff;
+      margin-left: 100px;
+      padding: 10px 40px;
+    }
+
+    /* ====== PANEL DERECHO ====== */
+    .right-panel {
+      flex: 1.4;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 60px 100px;
+    }
+
+    .right-panel h1 {
+      color: #00a3c4;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-top: -25px;
+      text-align: center;
+    }
+
+    .right-panel h2 {
+      color: #00a3c4;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-top: 18px;
+      text-align: center;
+      margin-right: 300px;
+    }
+
+    /* ====== CÍRCULO Y LÍNEA ====== */
+    .step {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-top: 20px;
+      margin-right: 450px;
+    }
+
+    .step::before {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 4px;
+      background-color: #00a3c4;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .step-number {
+      position: relative;
+      background: #00a3c4;
+      color: white;
+      font-weight: 700;
+      font-size: 1.8rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    /* ====== IMAGEN CENTRAL ====== */
+    .avatar {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 20px 0;
+    }
+
+    .avatar img {
+      width: 180px;
+      height: auto;
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    /* ====== CAMPOS ====== */
+    form {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 28px;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: black;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      border: none;
+      border-bottom: 2px solid black;
+      outline: none;
+      font-size: 16px;
+      color: black;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .input-group input::placeholder {
+      color: black;
+      opacity: 0.6;
+      transition: color 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #00a3c4;
+      color: #00a3c4;
+    }
+
+    .input-group input:focus::placeholder,
+    .input-group input:focus ~ i {
+      color: #00a3c4;
+    }
+
+    /* Estilos para iconos de error y validación */
+    .error-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: red;
+      font-size: 18px;
+      display: none;
+    }
+
+    .error-icon.show {
+      display: block;
+    }
+
+    .input-group.error input {
+      border-color: red;
+    }
+
+    .input-group.valid input {
+      border-color: #00a3c4;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    /* ====== BOTÓN ====== */
+    .btn-completar {
+      margin-top: 50px;
+      background-color: #00a3c4;
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.3s ease;
+      margin-left: 240px;
+    }
+
+    .btn-completar:hover:not(:disabled) {
+      background-color: #008fb0;
+    }
+
+    /* Botón deshabilitado más visible */
+    .btn-completar:disabled {
+      background-color: #b3b3b3;
+      cursor: not-allowed;
+      opacity: 0.8;
+    }
+
+    .btn-completar i { font-size: 18px; }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div class="brand">
+        <div class="logo">
+          <img src="../../Assets/LOGOINGRESAR.png" alt="KonCheck logo" />
+        </div>
+        <h1>KonCheck</h1>
+      </div>
+    </div>
+
+    <div class="side-tabs" aria-hidden="false">
+      <a href="../IngresarAd/IngresarAd.html" class="side-tab ingresar" role="button" aria-label="Ingresar">Ingresar</a>
+      <a href="#" class="side-tab registro" role="button" aria-label="Registro">Registro</a>
+    </div>
+
+    <div class="right-panel">
+      <h1>REGISTRO</h1>
+
+      <div class="step">
+        <div class="step-number">1</div>
+      </div>
+
+      <h2>Información Administrador</h2>
+
+      <div class="avatar">
+        <img id="admin-avatar" src="../../Assets/INGRESAR_ad_CORREO.png" alt="Avatar Administrador" />
+      </div>
+
+      <form id="registro-form">
+        <div class="input-group" id="email-group">
+          <i>📧</i>
+          <input type="email" id="email-input" placeholder="    Correo Electrónico" required />
+          <span class="error-icon" id="email-error">❗</span>
+        </div>
+        <div class="error-message" id="email-message"></div>
+
+        <div class="input-group" id="password-group">
+          <i>🔒</i>
+          <input type="password" id="password-input" placeholder="    Contraseña" required />
+          <span class="error-icon" id="password-error">❗</span>
+        </div>
+        <div class="error-message" id="password-message"></div>
+
+        <button type="button" class="btn-completar" id="btn-completar" disabled>
+          Completar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('.brand').addEventListener('click', () => {
+      window.location.href = "../../LandingPage.html";
+    });
+  </script>
+
+  <script>
+    const API_URL = 'https://localhost:8181/koncheck/api';
+    const emailInput = document.getElementById('email-input');
+    const passwordInput = document.getElementById('password-input');
+    const btnCompletar = document.getElementById('btn-completar');
+    const emailGroup = document.getElementById('email-group');
+    const passwordGroup = document.getElementById('password-group');
+    const emailError = document.getElementById('email-error');
+    const passwordError = document.getElementById('password-error');
+    const emailMessage = document.getElementById('email-message');
+    const passwordMessage = document.getElementById('password-message');
+    const avatar = document.getElementById('admin-avatar');
+    const basePath = "../../Assets/";
+
+    function validarCorreo(correo) {
+      if (correo.length > 30) {
+        return { valido: false, mensaje: 'El correo no puede tener más de 30 caracteres' };
+      }
+      
+      const regexCorreo = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.(com|co|edu\.co)$/;
+      if (!regexCorreo.test(correo)) {
+        return { valido: false, mensaje: 'Formato de correo inválido. Debe terminar en .com, .co o .edu.co' };
+      }
+      
+      return { valido: true, mensaje: '' };
+    }
+
+    function validarContrasena(password) {
+      if (password.length < 6 || password.length > 10) {
+        return { valido: false, mensaje: 'La contraseña debe tener entre 6 y 10 caracteres' };
+      }
+      
+      if (!/[A-Z]/.test(password)) {
+        return { valido: false, mensaje: 'Debe contener al menos 1 mayúscula' };
+      }
+      
+      if (!/[a-z]/.test(password)) {
+        return { valido: false, mensaje: 'Debe contener al menos 1 minúscula' };
+      }
+      
+      if (!/[0-9]/.test(password)) {
+        return { valido: false, mensaje: 'Debe contener al menos 1 número' };
+      }
+      
+      return { valido: true, mensaje: '' };
+    }
+
+    let correoValido = false;
+    let contrasenaValida = false;
+
+    emailInput.addEventListener('input', () => {
+      const resultado = validarCorreo(emailInput.value);
+      correoValido = resultado.valido;
+      
+      if (emailInput.value === '') {
+        emailGroup.classList.remove('error', 'valid');
+        emailError.classList.remove('show');
+        emailMessage.classList.remove('show');
+      } else if (resultado.valido) {
+        emailGroup.classList.remove('error');
+        emailGroup.classList.add('valid');
+        emailError.classList.remove('show');
+        emailMessage.classList.remove('show');
+      } else {
+        emailGroup.classList.add('error');
+        emailGroup.classList.remove('valid');
+        emailError.classList.add('show');
+        emailMessage.textContent = resultado.mensaje;
+        emailMessage.classList.add('show');
+      }
+      
+      actualizarBoton();
+    });
+
+    passwordInput.addEventListener('input', () => {
+      const resultado = validarContrasena(passwordInput.value);
+      contrasenaValida = resultado.valido;
+      
+      if (passwordInput.value === '') {
+        passwordGroup.classList.remove('error', 'valid');
+        passwordError.classList.remove('show');
+        passwordMessage.classList.remove('show');
+      } else if (resultado.valido) {
+        passwordGroup.classList.remove('error');
+        passwordGroup.classList.add('valid');
+        passwordError.classList.remove('show');
+        passwordMessage.classList.remove('show');
+      } else {
+        passwordGroup.classList.add('error');
+        passwordGroup.classList.remove('valid');
+        passwordError.classList.add('show');
+        passwordMessage.textContent = resultado.mensaje;
+        passwordMessage.classList.add('show');
+      }
+      
+      actualizarBoton();
+    });
+
+    function actualizarBoton() {
+      if (correoValido && contrasenaValida) {
+        btnCompletar.disabled = false;
+      } else {
+        btnCompletar.disabled = true;
+      }
+    }
+
+    passwordInput.addEventListener('focus', () => {
+      avatar.src = basePath + "INGRESAR_ad_CONTRASEÑA.png";
+    });
+
+    emailInput.addEventListener('focus', () => {
+      avatar.src = basePath + "INGRESAR_ad_CORREO.png";
+    });
+
+    btnCompletar.addEventListener('click', async () => {
+      if (!correoValido || !contrasenaValida) {
+        alert('Por favor, completa todos los campos correctamente');
+        return;
+      }
+
+      btnCompletar.disabled = true;
+      btnCompletar.textContent = 'Registrando...';
+
+      try {
+        console.log('[v0] Enviando registro:', { correo: emailInput.value });
+        
+        const response = await fetch(`${API_URL}/auth/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            correo: emailInput.value,
+            password: passwordInput.value
+          })
+        });
+
+        const data = await response.json();
+        console.log('[v0] Respuesta del servidor:', data);
+
+        if (response.ok) {
+          console.log('[v0] Registro exitoso');
+          alert('✅ Registro exitoso. Ahora puedes iniciar sesión.');
+          window.location.href = '../IngresarAd/IngresarAd.html';
+        } else {
+          // Mostrar el mensaje específico del servidor
+          const errorMsg = data.error || data.message || 'Error desconocido al registrar';
+          console.error('[v0] Error en registro:', errorMsg);
+          alert('❌ ' + errorMsg);
+          btnCompletar.disabled = false;
+          btnCompletar.textContent = 'Completar';
+        }
+      } catch (error) {
+        console.error('[v0] Error de conexión:', error);
+        alert('❌ Error de conexión con el servidor.\n\nVerifica que:\n1. El backend esté ejecutándose en https://localhost:8181\n2. El certificado SSL esté aceptado en tu navegador\n3. La base de datos esté activa');
+        btnCompletar.disabled = false;
+        btnCompletar.textContent = 'Completar';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: koncheck-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: koncheck_db
+      MYSQL_USER: koncheck
+      MYSQL_PASSWORD: KonCheck2025!
+      MYSQL_ROOT_PASSWORD: RootKonCheck2025!
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./scripts:/docker-entrypoint-initdb.d
+    networks:
+      - koncheck-network
+
+volumes:
+  db-data:
+
+networks:
+  koncheck-network:
+    driver: bridge

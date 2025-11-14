@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro Fuerza Pública - KonCheck</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ====== ESTILOS GENERALES ====== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background: #f5f5f5;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ====== PANEL IZQUIERDO ====== */
+    .left-panel {
+      flex: 1;
+      background: url("../../Assets/FONDOINGRESAR-FP.png") no-repeat center center;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      padding: 60px;
+    }
+
+    .left-panel img {
+      width: 60px;
+      height: 60px;
+    }
+
+    .left-panel h1 {
+      font-weight: 700;
+      font-size: 2rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), -1px -1px 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .left-panel .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: -500px;
+      margin-left: -280px;
+    }
+
+    /* ====== BOTONES LATERALES ====== */
+    .container {
+      position: relative;
+    }
+
+    .side-tabs {
+      position: absolute;
+      left: calc(25% - 16px);
+      top: 30%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+      pointer-events: none;
+    }
+
+    .side-tab {
+      pointer-events: auto;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      border-radius: 12px;
+      padding: 10px 26px;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.06);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #159000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .side-tab.registro {
+      background: #ffffff;
+      color: #159000;
+      border: none;
+      width: 220px;
+      margin-left: 100px;
+      box-shadow: none;
+    }
+
+    .side-tab.registro:hover {
+      transform: translateY(-2px);
+    }
+
+    .side-tab.ingresar {
+      background: transparent;
+      color: #ffffff;
+      margin-left: 100px;
+      padding: 10px 40px;
+    }
+
+    /* ====== PANEL DERECHO ====== */
+    .right-panel {
+      flex: 1.4;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 60px 100px;
+      color: #159000;
+    }
+
+    .right-panel h1 {
+      color: #159000;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-top: -25px;
+      text-align: center;
+    }
+
+    .right-panel h2 {
+      color: #159000;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-top: 18px;
+      text-align: center;
+      margin-right: 300px;
+    }
+
+    /* ====== CÍRCULO Y LÍNEA ====== */
+    .step {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-top: 20px;
+      margin-right: 450px;
+    }
+
+    .step::before {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 4px;
+      background-color: #159000;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .step-number {
+      position: relative;
+      background: #159000;
+      color: white;
+      font-weight: 700;
+      font-size: 1.8rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    /* ====== FORMULARIO ====== */
+    form {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 28px;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: black;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      border: none;
+      border-bottom: 2px solid black;
+      outline: none;
+      font-size: 16px;
+      color: black;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .input-group input::placeholder {
+      color: black;
+      opacity: 0.6;
+      transition: color 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #159000;
+      color: #159000;
+    }
+
+    .input-group input:focus::placeholder,
+    .input-group input:focus~i {
+      color: #159000;
+    }
+
+    .error-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: red;
+      font-size: 18px;
+      display: none;
+    }
+
+    .error-icon.show {
+      display: block;
+    }
+
+    .input-group.error input {
+      border-color: red;
+    }
+
+    .input-group.valid input {
+      border-color: #159000;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    /* ====== BOTONES ====== */
+    .btn-guardar {
+      background-color: #00b33c;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      float: right;
+      margin-top: 45px;
+    }
+
+    .btn-guardar:hover {
+      background-color: #009933;
+    }
+
+    .input-group {
+  position: relative;
+  margin-bottom: 40px; /* da espacio fijo para el error */
+}
+
+.input-group .error-message {
+  position: absolute;
+  bottom: -18px; /* muestra el mensaje debajo sin empujar el input */
+  left: 0;
+  font-size: 12px;
+  color: red;
+  display: none;
+}
+
+.input-group .error-message.show {
+  display: block;
+}
+
+.input-group i,
+.input-group .error-icon {
+  pointer-events: none;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div class="brand">
+        <div class="logo"><img src="../../Assets/LOGOINGRESAR.png" alt="KonCheck logo" /></div>
+        <h1>KonCheck</h1>
+      </div>
+    </div>
+
+    <div class="side-tabs" aria-hidden="false">
+      <a href="../IngresarFp/IngresarFp.html" class="side-tab ingresar" role="button" aria-label="Ingresar">Ingresar</a>
+      <a href="#" class="side-tab registro" role="button" aria-label="Registro">Registro</a>
+    </div>
+
+    <div class="right-panel">
+      <h1>REGISTRO</h1>
+      <div class="step">
+        <div class="step-number">1</div>
+      </div>
+      <h2>Información personal</h2>
+
+      <form id="registro-form">
+        <div class="input-group">
+          <i class="fa-solid fa-id-card"></i>
+          <input type="text" name="identificacion" placeholder="Número de Identificación (10 dígitos)" maxlength="10" />
+          <span class="error-icon">❗</span>
+        </div>
+
+        <div class="input-group">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" name="nombres" placeholder="Nombres Completos" />
+          <span class="error-icon">❗</span>
+        </div>
+
+        <div class="input-group">
+          <i class="fa-solid fa-lock"></i>
+          <input type="text" name="apellidos" placeholder="Apellidos Completos" />
+          <span class="error-icon">❗</span>
+        </div>
+
+        <button type="submit" class="btn-guardar">
+          Siguiente <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Script para redirección de logos -->
+  <script src="../js/logo-redirect.js"></script>
+  
+  <script>
+
+    // ✅ Validación + Redirección a paso 2
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('registro-form');
+      const idInput = form.querySelector('input[name="identificacion"]');
+      const nombreInput = form.querySelector('input[name="nombres"]');
+      const apellidoInput = form.querySelector('input[name="apellidos"]');
+
+      // Cargar datos guardados si existen
+      idInput.value = sessionStorage.getItem('identificacion') || '';
+      nombreInput.value = sessionStorage.getItem('nombres') || '';
+      apellidoInput.value = sessionStorage.getItem('apellidos') || '';
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let valid = true;
+        const soloNumeros = /^[0-9]+$/;
+        const soloLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+        form.querySelectorAll('.error-message').forEach(msg => msg.remove());
+
+        if (!soloNumeros.test(idInput.value.trim())) {
+          mostrarError(idInput, "El número de identificación solo puede contener números - 10 dígitos.");
+          valid = false;
+        }
+     
+        if (!soloLetras.test(nombreInput.value.trim())) {
+          mostrarError(nombreInput, "El nombre solo puede contener letras.");
+          valid = false;
+        }
+        if (!soloLetras.test(apellidoInput.value.trim())) {
+          mostrarError(apellidoInput, "Los apellidos solo pueden contener letras.");
+          valid = false;
+        }
+
+        // ✅ Si todo es válido → guardar en sessionStorage e ir al siguiente paso
+        if (valid) {
+          sessionStorage.setItem('identificacion', idInput.value.trim());
+          sessionStorage.setItem('nombres', nombreInput.value.trim());
+          sessionStorage.setItem('apellidos', apellidoInput.value.trim());
+          window.location.href = "RegistrarFp2.html";
+        }
+      });
+
+      function mostrarError(input, mensaje) {
+        const error = document.createElement('div');
+        error.classList.add('error-message', 'show');
+        error.textContent = mensaje;
+        input.closest('.input-group').appendChild(error);
+      }
+    });
+  </script>
+</body>
+
+</html>

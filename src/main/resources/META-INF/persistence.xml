@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence 
+             https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+    <persistence-unit name="koncheckPU" transaction-type="JTA">
+        <jta-data-source>jdbc/koncheckDS</jta-data-source>
+
+        <!-- Entidades -->
+        <class>edu.konrad.model.Persona</class>
+        <class>edu.konrad.model.Administrador</class>
+        <class>edu.konrad.model.Ciudadano</class>
+        <class>edu.konrad.model.Documento</class>
+        <class>edu.konrad.model.FuerzaPublica</class>
+
+        <properties>
+            <!-- Hibernate genera/actualiza el esquema automáticamente -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
+
+            <!-- Dialecto MySQL 8 -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+
+            <!-- Mostrar SQL en consola (desactivar en producción) -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+
+            <!-- Configuración de conexión -->
+            <property name="hibernate.connection.CharSet" value="utf8mb4"/>
+            <property name="hibernate.connection.characterEncoding" value="utf8mb4"/>
+            <property name="hibernate.connection.useUnicode" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

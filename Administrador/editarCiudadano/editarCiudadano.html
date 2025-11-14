@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar Ciudadano - KonCheck</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .main-container {
+      display: flex;
+      height: 138vh;
+      width: 99vw;
+      background-color: #00839a;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #00839a;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      color: white;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 45px;
+      height: 45px;
+    }
+
+    .app-name {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.1;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), -1px -1px 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .menu-button {
+      background-color: white;
+      color: #00839a;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 35px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      width: fit-content;
+      margin-top: 30px;
+      transition: background-color 0.3s ease;
+      margin-left: 70px;
+    }
+
+    .menu-button .icon {
+      margin-left: -10px;
+    }
+
+    .menu-button:hover {
+      background-color: #e5e5e5;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), -1px -1px 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .logout {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      align-self: flex-start;
+      margin-top: auto;
+      transition: opacity 0.3s ease;
+      margin-left: 50px;
+      font-weight: 600;
+    }
+
+    .logout:hover {
+      opacity: 0.8;
+    }
+
+    .content {
+      flex: 1;
+      background-color: white;
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+      margin: 20px 20px 20px 0;
+      position: relative;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 95%;
+      margin: 30px auto 30px auto;
+    }
+
+    .header-box {
+      flex: 1;
+      background-color: #00839a;
+      color: #fff;
+      padding: 15px 30px;
+      border-radius: 20px;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 85px;
+    }
+
+    .profile-icon {
+      font-size: 42px;
+      color: #000;
+      cursor: pointer;
+      margin-top: 9px;
+    }
+
+    .search-section {
+      width: 95%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .new-btn1 {
+      background-color: #9a0000;
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-left: 960px;
+    }
+
+    .new-btn1:hover {
+      background-color: #7c0101;
+      transform: translateY(-2px);
+    }
+
+    .section-title {
+      position: relative;
+      top: -35px;
+      margin: -15px 0 0 40px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .section-subTitle {
+      position: relative;
+      top: -30px;
+      margin: 30px 0 0 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .section-subTitle2 {
+      position: relative;
+      top: -30px;
+      margin: 30px 0 0 5px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .registro-box {
+      width: 95%;
+      min-height: 140px;
+      margin: 10px auto 15px auto;
+      background-color: #ffffff;
+      border: 1.5px solid #dcdcdc;
+      border-radius: 15px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+      padding: 20px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .registro-box:hover {
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .registro-box2 {
+      width: 95%;
+      min-height: 520px;
+      margin: 0px auto 40px auto;
+      background-color: #ffffff;
+      border: 1.5px solid #dcdcdc;
+      border-radius: 15px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+      padding: 20px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .registro-box2:hover {
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .acciones {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .acciones button {
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    .btn-eliminar {
+      background: #d32f2f;
+      color: #fff;
+    }
+
+    .btn-eliminar:hover {
+      background: #b71c1c;
+      transform: scale(1.05);
+    }
+
+    .tabla-ciudadanos {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .tabla-ciudadanos th {
+      background-color: #e0e0e0;
+      color: #333;
+      padding: 10px 24px;
+      letter-spacing: 1px;
+      text-align: left;
+      border-bottom: 2px solid #ccc;
+    }
+
+    .tabla-ciudadanos td {
+      padding: 8px 24px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .tabla-ciudadanos tbody tr:hover {
+      background-color: #f7f7f7;
+    }
+
+    .tabla-ciudadanos tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .form-actualizar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .form-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .form-group input,
+    .estado-select {
+      padding: 10px 14px;
+      border: 1.5px solid #bfbfbf;
+      border-radius: 10px;
+      font-size: 15px;
+      width: 100%;
+      background-color: #fff;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    .form-group input:focus,
+    .estado-select:focus {
+      border: 1.5px solid #00839a;
+    }
+
+    .estado-select {
+      appearance: none;
+      cursor: pointer;
+      background-color: #f7f7f7;
+    }
+
+    .estado-row {
+      align-items: flex-end;
+    }
+
+    .botones {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      justify-content: flex-end;
+      margin-right: 390px;
+    }
+
+    .btn-guardar,
+    .btn-cancelar {
+      padding: 10px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 45px;
+      margin-left: 30px;
+    }
+
+    .btn-guardar {
+      background-color: #00839a;
+      color: #fff;
+    }
+
+    .btn-guardar:hover {
+      background-color: #006f83;
+      transform: translateY(-2px);
+    }
+
+    .btn-cancelar {
+      background-color: #6e6e6e;
+      color: #fff;
+    }
+
+    .btn-cancelar:hover {
+      background-color: #555;
+      transform: translateY(-2px);
+    }
+
+    /* Overlay */
+    .kc-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .kc-overlay .kc-iframe {
+      width: 760px;
+      max-width: calc(100% - 40px);
+      height: 460px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      background: white;
+    }
+
+    /* Estilos para el prompt overlay */
+    .prompt-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.55);
+      z-index: 99999;
+      padding: 20px;
+    }
+
+    .error-message {
+      color: #d32f2f;
+      text-align: center;
+      padding: 20px;
+      font-size: 16px;
+    }
+
+    /* 🔴 ESTILOS PARA VALIDACIONES EN ROJO */
+    .campo-error {
+      border: 2px solid #d32f2f !important;
+      background-color: #ffebee !important;
+    }
+
+    .mensaje-error {
+      color: #d32f2f;
+      font-size: 12px;
+      margin-top: 5px;
+      font-weight: 600;
+      display: none;
+    }
+
+    .mensaje-error.mostrar {
+      display: block;
+    }
+
+    .label-error {
+      color: #d32f2f !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-container">
+    <div class="sidebar">
+      <div>
+        <div class="logo-section">
+          <img src="../../Assets/LOGOINGRESAR.png" alt="KonCheck logo" class="logo" />
+          <h2 class="app-name">KonCheck</h2>
+        </div>
+
+        <button class="menu-button" onclick="window.location.href='../Dashboard/dashboard.html'">
+          <span class="icon">🔒</span> Ciudadanos
+        </button>
+      </div>
+
+      <a href="../../LandingPage.html" class="logout">Cerrar Sesión</a>
+    </div>
+
+    <div class="content">
+      <div class="top-bar">
+        <div class="header-box">Gestión de Ciudadanos</div>
+        <div class="profile-icon">👤</div>
+      </div>
+
+      <div class="search-section">
+        <button class="new-btn1">📄 Generar Reporte </button>
+      </div>
+
+      <h2 class="section-title">Registro de Ciudadanos</h2>
+
+      <!-- SECCIÓN AÑADIDA: Ciudadano a Actualizar -->
+      <div class="registro-box" id="ciudadanoActualizarBox">
+        <h3 class="section-subTitle">Ciudadano a Actualizar</h3>
+      </div>
+
+      <div class="registro-box2">
+        <h3 class="section-subTitle2">Datos a Actualizar</h3>
+
+        <form class="form-actualizar" id="formEditar">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Identificación</label>
+              <input type="text" name="identificacion" maxlength="10"/>
+              <div class="mensaje-error" id="error-identificacion">Solo se permiten números</div>
+            </div>
+            <div class="form-group">
+              <label>Nombres</label>
+              <input type="text" name="nombres" />
+              <div class="mensaje-error" id="error-nombres">Solo se permiten letras</div>
+            </div>
+            <div class="form-group">
+              <label>Apellidos</label>
+              <input type="text" name="apellidos" />
+              <div class="mensaje-error" id="error-apellidos">Solo se permiten letras</div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fecha de nacimiento</label>
+              <input type="date" name="fechaNacimiento" />
+              <div class="mensaje-error" id="error-fechaNacimiento">Campo obligatorio</div>
+            </div>
+            <div class="form-group">
+              <label>Lugar de nacimiento</label>
+              <input type="text" name="lugarNacimiento" />
+              <div class="mensaje-error" id="error-lugarNacimiento">Solo se permiten letras</div>
+            </div>
+            <div class="form-group">
+              <label>RH</label>
+              <input type="text" name="rh" />
+              <div class="mensaje-error" id="error-rh">Valores válidos: A+, A-, B+, B-, AB+, AB-, O+, O-</div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fecha de expedición</label>
+              <input type="date" name="fechaExpedicion" />
+              <div class="mensaje-error" id="error-fechaExpedicion">Campo obligatorio</div>
+            </div>
+            <div class="form-group">
+              <label>Lugar de expedición</label>
+              <input type="text" name="lugarExpedicion" />
+              <div class="mensaje-error" id="error-lugarExpedicion">Solo se permiten letras</div>
+            </div>
+            <div class="form-group">
+              <label>Estatura (m)</label>
+              <input type="text" name="estatura" />
+              <div class="mensaje-error" id="error-estatura">Campo obligatorio</div>
+            </div>
+          </div>
+
+          <div class="form-row estado-row">
+            <div class="form-group">
+              <label>Estado</label>
+              <select name="estado" class="estado-select">
+                <option value="">Seleccione un estado</option>
+                <option value="No Requerido">🟢 No Requerido</option>
+                <option value="Requerido">🔴 Requerido</option>
+              </select>
+              <div class="mensaje-error" id="error-estado">Debe seleccionar un estado</div>
+            </div>
+          </div>
+
+          <div class="botones">
+            <button type="submit" class="btn-guardar">Guardar Cambios</button>
+            <button type="button" class="btn-cancelar" onclick="mostrarCancelarPrompt()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('formEditar');
+      const ciudadano = JSON.parse(localStorage.getItem('ciudadanoSeleccionado'));
+      const ciudadanoActualizarBox = document.getElementById('ciudadanoActualizarBox');
+
+      // Cargar datos del ciudadano en la tabla superior
+      if (ciudadano) {
+        ciudadanoActualizarBox.innerHTML = `
+          <h3 class="section-subTitle">Ciudadano a Actualizar</h3>
+          <table class="tabla-ciudadanos">
+            <thead>
+              <tr>
+                <th>Identificación</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Fecha Nacimiento</th>
+                <th>Lugar Nacimiento</th>
+                <th>Estado Judicial</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>${ciudadano.identificacion}</td>
+                <td>${ciudadano.nombres}</td>
+                <td>${ciudadano.apellidos}</td>
+                <td>${ciudadano.fechaNacimiento}</td>
+                <td>${ciudadano.lugarNacimiento}</td>
+                <td>${ciudadano.estadoJudicial}</td>
+                <td class="acciones">
+                  <button class="btn-eliminar" id="btnEliminar">🗑️</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        `;
+
+        // Agregar event listener al botón de eliminar después de crear el HTML
+        document.getElementById('btnEliminar').addEventListener('click', mostrarEliminarPrompt);
+      }
+
+      // Cargar datos del ciudadano en el formulario
+      if (ciudadano) {
+        form.identificacion.value = ciudadano.identificacion;
+        form.nombres.value = ciudadano.nombres;
+        form.apellidos.value = ciudadano.apellidos;
+        form.fechaNacimiento.value = ciudadano.fechaNacimiento;
+        form.lugarNacimiento.value = ciudadano.lugarNacimiento;
+        form.rh.value = ciudadano.rh;
+        form.fechaExpedicion.value = ciudadano.fechaExpedicion;
+        form.lugarExpedicion.value = ciudadano.lugarExpedicion;
+        form.estatura.value = ciudadano.estatura;
+        form.estado.value = ciudadano.estadoJudicial;
+      }
+
+      // Función para limpiar errores
+      function limpiarErrores() {
+        const errores = document.querySelectorAll('.mensaje-error');
+        const campos = document.querySelectorAll('.form-group input, .form-group select');
+        const labels = document.querySelectorAll('.form-group label');
+        
+        errores.forEach(error => error.classList.remove('mostrar'));
+        campos.forEach(campo => campo.classList.remove('campo-error'));
+        labels.forEach(label => label.classList.remove('label-error'));
+      }
+
+      // Función para mostrar error en un campo específico
+      function mostrarError(campoNombre, mensaje) {
+        const campo = form.querySelector(`[name="${campoNombre}"]`);
+        const errorElement = document.getElementById(`error-${campoNombre}`);
+        const label = campo.closest('.form-group').querySelector('label');
+        
+        campo.classList.add('campo-error');
+        label.classList.add('label-error');
+        errorElement.textContent = mensaje;
+        errorElement.classList.add('mostrar');
+      }
+
+      // 🔹 VALIDACIÓN ANTES DE GUARDAR
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Limpiar errores previos
+        limpiarErrores();
+
+        const identificacion = form.identificacion.value.trim();
+        const nombres = form.nombres.value.trim();
+        const apellidos = form.apellidos.value.trim();
+        const fechaNacimiento = form.fechaNacimiento.value.trim();
+        const lugarNacimiento = form.lugarNacimiento.value.trim();
+        const rh = form.rh.value.trim().toUpperCase();
+        const fechaExpedicion = form.fechaExpedicion.value.trim();
+        const lugarExpedicion = form.lugarExpedicion.value.trim();
+        const estatura = form.estatura.value.trim();
+        const estado = form.estado.value.trim();
+
+        const rhValidos = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+        let hayErrores = false;
+
+        // 🔸 Validaciones
+        if (!identificacion) {
+          mostrarError('identificacion', 'Campo obligatorio');
+          hayErrores = true;
+        } else if (!/^\d+$/.test(identificacion)) {
+          mostrarError('identificacion', 'Solo se permiten números');
+          hayErrores = true;
+        } else if (identificacion.length !== 10) {
+          mostrarError('identificacion', 'Debe tener exactamente 10 dígitos');
+          hayErrores = true;
+        }
+
+        if (!nombres) {
+          mostrarError('nombres', 'Campo obligatorio');
+          hayErrores = true;
+        } else if (!/^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/.test(nombres)) {
+          mostrarError('nombres', 'Solo se permiten letras');
+          hayErrores = true;
+        }
+
+        if (!apellidos) {
+          mostrarError('apellidos', 'Campo obligatorio');
+          hayErrores = true;
+        } else if (!/^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/.test(apellidos)) {
+          mostrarError('apellidos', 'Solo se permiten letras');
+          hayErrores = true;
+        }
+
+        if (!fechaNacimiento) {
+          mostrarError('fechaNacimiento', 'Campo obligatorio');
+          hayErrores = true;
+        }
+
+        if (!lugarNacimiento) {
+          mostrarError('lugarNacimiento', 'Campo obligatorio');
+          hayErrores = true;
+        } else if (!/^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/.test(lugarNacimiento)) {
+          mostrarError('lugarNacimiento', 'Solo se permiten letras');
+          hayErrores = true;
+        }
+
+        if (!rh) {
+          mostrarError('rh', 'Campo obligatorio');
+          hayErrores = true;
+        } else if (!rhValidos.includes(rh)) {
+          mostrarError('rh', 'Valores válidos: A+, A-, B+, B-, AB+, AB-, O+, O-');
+          hayErrores = true;
+        }
+
+        if (!fechaExpedicion) {
+          mostrarError('fechaExpedicion', 'Campo obligatorio');
+          hayErrores = true;
+        }
+
+        if (!lugarExpedicion) {
+          mostrarError('lugarExpedicion', 'Campo obligatorio');
+          hayErrores = true;
+        } else if (!/^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/.test(lugarExpedicion)) {
+          mostrarError('lugarExpedicion', 'Solo se permiten letras');
+          hayErrores = true;
+        }
+
+        if (!estatura) {
+          mostrarError('estatura', 'Campo obligatorio');
+          hayErrores = true;
+        }
+
+        if (!estado) {
+          mostrarError('estado', 'Debe seleccionar un estado');
+          hayErrores = true;
+        }
+
+        if (hayErrores) {
+          return;
+        }
+
+        // Si todo pasa, guardar cambios normalmente
+        const ciudadanos = JSON.parse(localStorage.getItem('ciudadanos')) || [];
+        const index = parseInt(localStorage.getItem('ciudadanoIndex'), 10);
+
+        ciudadanos[index] = {
+          identificacion,
+          nombres,
+          apellidos,
+          fechaNacimiento,
+          lugarNacimiento,
+          rh,
+          fechaExpedicion,
+          lugarExpedicion,
+          estatura,
+          estadoJudicial: estado
+        };
+
+        localStorage.setItem('ciudadanos', JSON.stringify(ciudadanos));
+        localStorage.removeItem('ciudadanoSeleccionado');
+        localStorage.removeItem('ciudadanoIndex');
+
+        mostrarOperacionExitosaPrompt();
+      });
+
+      // Limpiar errores cuando el usuario empiece a escribir
+      const inputs = form.querySelectorAll('input, select');
+      inputs.forEach(input => {
+        input.addEventListener('input', () => {
+          input.classList.remove('campo-error');
+          const errorElement = document.getElementById(`error-${input.name}`);
+          if (errorElement) {
+            errorElement.classList.remove('mostrar');
+          }
+          const label = input.closest('.form-group').querySelector('label');
+          label.classList.remove('label-error');
+        });
+      });
+    });
+
+    // Función específica para mostrar el prompt de eliminar
+    function mostrarEliminarPrompt() {
+      const path = '../Dashboard/PROMPTS/eliminarCiudadano.html';
+
+      // Cerrar overlay previo si existe
+      const prev = document.querySelector('.prompt-overlay');
+      if (prev) prev.remove();
+
+      const overlay = document.createElement('div');
+      overlay.className = 'prompt-overlay';
+      Object.assign(overlay.style, {
+        position: 'fixed',
+        inset: '0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'rgba(0,0,0,0.55)',
+        zIndex: 99999,
+        padding: '20px'
+      });
+
+      const caja = document.createElement('div');
+      Object.assign(caja.style, {
+        position: 'relative',
+        width: '720px',
+        maxWidth: '95vw',
+        height: '70vh',
+        maxHeight: '90vh',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        boxShadow: '0 8px 30px rgba(0,0,0,0.4)',
+        background: '#fff'
+      });
+
+      const closeBtn = document.createElement('button');
+      closeBtn.innerHTML = '&times;';
+      Object.assign(closeBtn.style, {
+        position: 'absolute',
+        top: '10px',
+        right: '12px',
+        zIndex: 10,
+        fontSize: '28px',
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        color: '#333'
+      });
+
+      closeBtn.addEventListener('click', () => {
+        overlay.remove();
+      });
+
+      const iframe = document.createElement('iframe');
+      iframe.src = path;
+      Object.assign(iframe.style, {
+        width: '100%',
+        height: '100%',
+        border: '0',
+        display: 'block'
+      });
+
+      // Manejar errores de carga del iframe
+      iframe.addEventListener('load', function() {
+        console.log('Iframe cargado correctamente');
+      });
+
+      iframe.addEventListener('error', function() {
+        console.error('Error cargando el iframe con ruta:', path);
+        // Mostrar mensaje de error
+        caja.innerHTML = `
+          <div class="error-message">
+            <h3>Error al cargar el formulario de eliminación</h3>
+            <p>No se pudo encontrar el archivo: ${path}</p>
+            <button onclick="this.parentElement.parentElement.remove()" style="margin-top: 10px; padding: 8px 16px; background: #00839a; color: white; border: none; border-radius: 5px; cursor: pointer;">Cerrar</button>
+          </div>
+        `;
+      });
+
+      overlay.addEventListener('click', (ev) => {
+        if (ev.target === overlay) {
+          overlay.remove();
+        }
+      });
+
+      caja.appendChild(closeBtn);
+      caja.appendChild(iframe);
+      overlay.appendChild(caja);
+      document.body.appendChild(overlay);
+    }
+
+    // Función para mostrar el prompt de cancelar
+    function mostrarCancelarPrompt() {
+      const path = '../Dashboard/PROMPTS/cancelarOperacion.html';
+
+      // Cerrar overlay previo si existe
+      const prev = document.querySelector('.prompt-overlay');
+      if (prev) prev.remove();
+
+      const overlay = document.createElement('div');
+      overlay.className = 'prompt-overlay';
+      Object.assign(overlay.style, {
+        position: 'fixed',
+        inset: '0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'rgba(0,0,0,0.55)',
+        zIndex: 99999,
+        padding: '20px'
+      });
+
+      const caja = document.createElement('div');
+      Object.assign(caja.style, {
+        position: 'relative',
+        width: '720px',
+        maxWidth: '95vw',
+        height: '70vh',
+        maxHeight: '90vh',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        boxShadow: '0 8px 30px rgba(0,0,0,0.4)',
+        background: '#fff'
+      });
+
+      const closeBtn = document.createElement('button');
+      closeBtn.innerHTML = '&times;';
+      Object.assign(closeBtn.style, {
+        position: 'absolute',
+        top: '10px',
+        right: '12px',
+        zIndex: 10,
+        fontSize: '28px',
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        color: '#333'
+      });
+
+      closeBtn.addEventListener('click', () => {
+        overlay.remove();
+      });
+
+      const iframe = document.createElement('iframe');
+      iframe.src = path;
+      Object.assign(iframe.style, {
+        width: '100%',
+        height: '100%',
+        border: '0',
+        display: 'block'
+      });
+
+      // Manejar errores de carga del iframe
+      iframe.addEventListener('load', function() {
+        console.log('Iframe cargado correctamente');
+      });
+
+      iframe.addEventListener('error', function() {
+        console.error('Error cargando el iframe con ruta:', path);
+        // Mostrar mensaje de error
+        caja.innerHTML = `
+          <div class="error-message">
+            <h3>Error al cargar el formulario de cancelación</h3>
+            <p>No se pudo encontrar el archivo: ${path}</p>
+            <button onclick="this.parentElement.parentElement.remove()" style="margin-top: 10px; padding: 8px 16px; background: #00839a; color: white; border: none; border-radius: 5px; cursor: pointer;">Cerrar</button>
+          </div>
+        `;
+      });
+
+      overlay.addEventListener('click', (ev) => {
+        if (ev.target === overlay) {
+          overlay.remove();
+        }
+      });
+
+      caja.appendChild(closeBtn);
+      caja.appendChild(iframe);
+      overlay.appendChild(caja);
+      document.body.appendChild(overlay);
+    }
+
+    // Función para mostrar el prompt de operación exitosa
+    function mostrarOperacionExitosaPrompt() {
+      const path = '../Dashboard/PROMPTS/operacionExitosa.html';
+
+      // Cerrar overlay previo si existe
+      const prev = document.querySelector('.prompt-overlay');
+      if (prev) prev.remove();
+
+      const overlay = document.createElement('div');
+      overlay.className = 'prompt-overlay';
+      Object.assign(overlay.style, {
+        position: 'fixed',
+        inset: '0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'rgba(0,0,0,0.55)',
+        zIndex: 99999,
+        padding: '20px'
+      });
+
+      const caja = document.createElement('div');
+      Object.assign(caja.style, {
+        position: 'relative',
+        width: '720px',
+        maxWidth: '95vw',
+        height: '70vh',
+        maxHeight: '90vh',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        boxShadow: '0 8px 30px rgba(0,0,0,0.4)',
+        background: '#fff'
+      });
+
+      const closeBtn = document.createElement('button');
+      closeBtn.innerHTML = '&times;';
+      Object.assign(closeBtn.style, {
+        position: 'absolute',
+        top: '10px',
+        right: '12px',
+        zIndex: 10,
+        fontSize: '28px',
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        color: '#333'
+      });
+
+      // 🔹 Al cerrar el prompt, redirigir al dashboard
+      closeBtn.addEventListener('click', () => {
+        overlay.remove();
+        window.location.href = '../Dashboard/dashboard.html';
+      });
+
+      const iframe = document.createElement('iframe');
+      iframe.src = path;
+      Object.assign(iframe.style, {
+        width: '100%',
+        height: '100%',
+        border: '0',
+        display: 'block'
+      });
+
+      iframe.addEventListener('error', function() {
+        console.error('Error cargando el iframe:', path);
+      });
+
+      overlay.addEventListener('click', (ev) => {
+        if (ev.target === overlay) {
+          overlay.remove();
+          window.location.href = '../Dashboard/dashboard.html';
+        }
+      });
+
+      caja.appendChild(closeBtn);
+      caja.appendChild(iframe);
+      overlay.appendChild(caja);
+      document.body.appendChild(overlay);
+    }
+
+    // Escuchar mensajes desde los iframes
+    window.addEventListener('message', (ev) => {
+      const data = ev.data;
+      if (!data || !data.action) return;
+
+      console.log('Mensaje recibido:', data);
+
+      if (data.action === 'eliminar') {
+        const idxStr = localStorage.getItem('ciudadanoIndex');
+        const idx = idxStr ? parseInt(idxStr,10) : NaN;
+        const lista = JSON.parse(localStorage.getItem('ciudadanos')) || [];
+        
+        if(!isNaN(idx) && idx>=0 && idx<lista.length){
+          lista.splice(idx,1);
+          localStorage.setItem('ciudadanos', JSON.stringify(lista));
+          localStorage.removeItem('ciudadanoSeleccionado');
+          localStorage.removeItem('ciudadanoIndex');
+          
+          // Cerrar el overlay
+          const overlay = document.querySelector('.prompt-overlay');
+          if (overlay) overlay.remove();
+          
+          // Redirigir al dashboard
+          window.location.href = '../Dashboard/dashboard.html';
+        }
+      } else if (data.action === 'cancel') {
+        // Solo cerrar el overlay si se cancela
+        const overlay = document.querySelector('.prompt-overlay');
+        if (overlay) overlay.remove();
+      } else if (data.action === 'closePrompt') {
+        // Cerrar el overlay cuando se selecciona "No" en cancelarOperacion
+        const overlay = document.querySelector('.prompt-overlay');
+        if (overlay) overlay.remove();
+      } else if (data.action === 'confirmCancel') {
+        // Cuando se selecciona "SÍ" en cancelarOperacion - ir al dashboard
+        const overlay = document.querySelector('.prompt-overlay');
+        if (overlay) overlay.remove();
+        window.location.href = '../Dashboard/dashboard.html';
+      } else if (data.action === 'showPrompt' && data.ruta) {
+        // Mostrar otro prompt (como operacionExitosa)
+        const overlay = document.querySelector('.prompt-overlay');
+        if (overlay) {
+          const iframe = overlay.querySelector('iframe');
+          if (iframe) {
+            iframe.src = data.ruta;
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

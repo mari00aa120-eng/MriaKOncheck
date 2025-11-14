@@ -1,0 +1,1280 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kon-Check</title>
+
+  <style>
+    /* === Fondo general === */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #24a525 0%, #6bf263 50%, #a2ff93 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* === Header === */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 40px;
+      position: relative;
+    }
+
+    /* === Logo === */
+    .logo {
+      position: absolute;
+      left: 40px;
+      width: 70px;
+      height: auto;
+    }
+
+    /* === Contenedor del menú === */
+    .nav-container {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 20px;
+      padding: 15px 35px;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      gap: 25px;
+    }
+
+    /* === Menú === */
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: #000;
+      font-weight: 500;
+      font-size: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      color: #2ecb2b;
+    }
+
+    /* === Botón INGRESAR === */
+    .cta-button {
+      background: #2ecb2b;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 25px;
+      font-weight: bold;
+      font-size: 20px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .cta-button:hover {
+      background: #25a025;
+      transform: scale(1.05);
+    }
+
+    /* === Texto central KON-CHECK === */
+    .main-title {
+      text-align: center;
+      color: #ffffff;
+      font-size: 130px;
+      letter-spacing: 20px;
+      font-weight: bold;
+      margin-top: 60px;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* 🌟 sombra paralela */
+
+    }
+
+    /* === Contenedor del policía === */
+    .policia-container {
+      position: relative;
+      display: block;
+      width: fit-content;
+      margin: 40px auto 0 auto;
+      transform: translateX(-40px);
+      z-index: 5;
+    }
+
+    /* === Imagen del policía === */
+    .policia-img {
+      display: block;
+      width: 700px;
+      height: 1100px;
+    }
+
+    /* === Efecto glass === */
+    .glass-overlay {
+      position: absolute;
+      top: 800px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .glass-shape {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+      width: 500vw;
+      height: 650px;
+    }
+
+    .step-1 {
+      top: -13%;
+      right: 0;
+      width: 40%;
+      height: 33%;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    .step-2 {
+      top: 20%;
+      right: 0;
+      width: 65%;
+      height: 30%;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    .step-3 {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 60%;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    /* === Tarjeta al frente === */
+    .officer-section {
+      position: absolute;
+      top: 1150px; /* ajusta según la altura que necesites */
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999; /* AL FRENTE DE TODO */
+
+       /* Animación de flotación */
+        animation: floatCard 4s ease-in-out infinite;
+    }
+
+        /* === Animación flotante === */
+        @keyframes floatCard {
+        0% {
+            transform: translateX(-50%) translateY(0);
+        }
+        50% {
+            transform: translateX(-50%) translateY(-15px); /* sube levemente */
+        }
+        100% {
+            transform: translateX(-50%) translateY(0);
+        }
+        }
+
+
+    .info-card {
+      position: relative;
+      background: white;
+      border-radius: 12px;
+      padding: 50px 15px 15px 15px;
+      width: 250px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      text-align: center;
+      z-index: 9999;
+      transform: translate(-480px, -350px); /
+    }
+
+    .icon-overlay {
+    position: absolute;
+    top: -100px; /* sube un poco más */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px; /* más grande (antes 80px) */
+    height: auto;
+    z-index: 10000;
+    }
+
+
+
+
+   /* -----------------------*/
+   /* -----------------------*/
+
+   /* === Contenedor del contador de usuarios (glass) === */
+.user-count-overlay {
+  top: 500px; /* antes 900px — subido 100px */
+  position: absolute;
+
+  left: 50%;
+  transform: translateX(70px); /* antes 180px → movido más a la derecha */
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 20px 30px;
+  
+  /* Efecto glass */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+
+  z-index: 9999; /* AL FRENTE DE TODO */
+}
+
+/* === Avatares de usuarios === */
+.user-avatars {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 90px;   /* antes 55px */
+  height: 90px;  /* antes 55px */
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+  margin-left: -10px; /* efecto de solapado */
+  transition: transform 0.3s ease;
+}
+
+.user-avatar:first-child {
+  margin-left: 0;
+}
+
+.user-avatar:hover {
+  transform: scale(1.1);
+}
+
+/* === Contador === */
+.user-count {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #000000;
+  text-shadow: 0 0 6px rgba(0,0,0,0.2);
+}
+
+.user-count-number {
+  font-size: 46px;
+  color: #186C05;
+  font-weight: bold;
+  letter-spacing: 1px;
+
+  /* Efecto de brillo blanco */
+  text-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.7),
+    0 0 16px rgba(255, 255, 255, 0.5),
+    0 0 32px rgba(255, 255, 255, 0.3);
+}
+
+.user-count-label {
+  font-size: 25px;
+  opacity: 0.9;
+}
+
+
+
+
+   /* -----------------------*/
+   /* -----------------------*/
+
+/* === ID Cards Stack === */
+/* === TARJETAS ID APILADAS (Stacked ID Cards con efecto de profundidad real) === */
+
+.id-cards-section {
+  position: absolute;
+  top: 900px;
+  left: 80%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.id-cards-stack {
+  position: relative;
+    width: 400px;  /* antes 320px */
+    height: 260px; /* antes 220px */
+  perspective: 1000px;
+}
+
+/* === TARJETAS BASE === */
+.id-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+
+/* === Orden visual === */
+/* CARD 1 (fondo, más arriba — el doble que la 3) */
+.id-card:nth-child(1) {
+  z-index: 1;
+  transform: translateY(-150px) scale(0.9);
+  filter: blur(1.2px) brightness(0.85);
+}
+
+/* CARD 2 (intermedia) */
+.id-card:nth-child(2) {
+  z-index: 2;
+  transform: translateY(-30px) scale(0.95);
+  filter: blur(0.6px) brightness(0.92);
+}
+
+/* CARD 3 (frontal) */
+.id-card:nth-child(3) {
+  z-index: 3;
+  transform: translateY(100px) scale(1);
+  filter: none;
+}
+
+/* === EFECTO HOVER INDIVIDUAL === */
+.id-card:hover {
+  z-index: 999;
+  transform: translateY(0px) scale(1.15);
+  filter: none;
+}
+
+/* === EFECTO EN LAS OTRAS TARJETAS CUANDO UNA ESTÁ HOVER === */
+.id-cards-stack:hover .id-card:not(:hover) {
+  filter: blur(4px) brightness(0.6);
+  transform: scale(0.9);
+}
+
+
+
+
+
+
+
+   /* -----------------------*/
+   /* -----------------------*/
+
+.security-section {
+  position: absolute;
+  top: 210%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999999;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #ffffff;
+  padding: 40px 80px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 1400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  clip-path: polygon(
+    0 0,
+    450px 0,
+    530px 80px,
+    1010px 80px,
+    1090px 0,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+  
+  
+
+}
+
+/* ====== IZQUIERDA ====== */
+.left-section {
+  width: 45%;
+}
+
+.icons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: -5px;
+}
+
+.icons img {
+  width: 75px;   /* antes 45px */
+  height: 75px;  /* antes 45px */
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  object-fit: cover;
+}
+.icons img:hover  {
+ transform: scale(1.05);
+}
+
+.left-section p {
+  font-size: 20px; 
+  line-height: 1.5; /* mejora el espaciado entre líneas */
+  font-weight: 500; /* un poco más grueso para destacar */
+  color: #000;
+
+  /* ✅ mueve solo este texto*/
+  position: relative;
+  left: 10px; /* */
+}
+
+
+/* ====== DERECHA ====== */
+.right-section {
+  text-align: right;
+  width: 45%;
+
+
+}
+
+.tag {
+  background: none;
+  border: 2px solid #1FA700;
+  border-radius: 6px;
+  padding: 2px 12px;
+  font-weight: 500;
+  font-size: 20px;
+  
+  /* ✅ mueve solo este texto*/
+  position: relative;
+  right: 230px; /* */
+  margin-bottom: 5px;
+    top: -15px; 
+}
+
+
+hr {
+  border: none;
+  border-top: 2px solid #000;
+  margin: 8px 0 12px 0;
+  /* ✅ mueve solo este texto*/
+  position: relative;
+    top: -5px; 
+}
+
+.stats {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  margin-right: 180px;
+}
+
+.highlight {
+  font-size: 3.5rem;
+  color: #2cb100;
+  font-weight: 700;
+  line-height: 1;
+
+  /* ✅ mueve solo este texto hacia la derecha */
+  position: relative;
+  left: 30px; /* ajusta el valor (20–60px) según lo que necesites */
+}
+
+.text {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.1;
+  color: #000;
+  text-align: left;
+
+  /* ✅ mueve solo este texto hacia la derecha */
+  position: relative;
+  left: 100px; /* ajusta el valor (20–60px) según lo que necesites */
+}
+
+
+/* === NUEVO BLOQUE === */
+.start-container {
+  display: inline-block;
+  text-align: right;
+  margin-right: 380px; /* igual que el bloque stats */
+}
+
+.start-link {
+  font-size: 1.1rem;
+  color: #000;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 10px;
+
+  /* 🔹 mueve SOLO el texto hacia la derecha */
+  position: relative;
+  left: 25px; /* ajusta el valor según lo que necesites (20–60px) */
+}
+
+
+.line-short {
+  width: 300%; /* ✅ mitad del ancho del hr superior */
+  height: 2px;
+  background-color: #000;
+  margin-left: auto; /* alineado a la derecha */
+}
+
+
+
+
+
+
+
+
+
+
+
+   /* -----------------------*/
+   /* -----------------------*/
+
+.button-container {
+  position: absolute;
+  top: 195%; /* cámbialo según donde quieras ubicarlo */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999999;
+  width: 240px;
+  height: 70px;
+}
+
+/* === Capa del borde exterior blanco === */
+.button-outline {
+  position: absolute;
+  inset: 0;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  background: transparent;
+}
+
+/* === Capa interior del botón (blanco real) === */
+.button-inner {
+  position: absolute;
+  inset: 8px; /* deja un pequeño borde visible alrededor */
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* === Flecha estilizada === */
+.arrow {
+  font-size: 22px;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+/* === Efecto hover === */
+.button-inner:hover {
+   background:#1FA700;
+   color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+
+
+
+
+
+
+
+   /* -----------------------*/
+   /* 🌟 Fondo con burbujas animadas detrás del equipo */
+.burbujas-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0; /* 👈 Detrás del contenido */
+}
+
+.burbuja {
+  position: absolute;
+  bottom: -150px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.05));
+  border-radius: 50%;
+  animation: flotar 12s infinite ease-in-out;
+  opacity: 0.6;
+  filter: blur(2px);
+}
+
+/* 🎈 Diferentes tamaños y posiciones */
+.burbuja:nth-child(1) { left: 10%; width: 180px; height: 180px; animation-duration: 15s; animation-delay: 0s; }
+.burbuja:nth-child(2) { left: 25%; width: 120px; height: 120px; animation-duration: 12s; animation-delay: 3s; }
+.burbuja:nth-child(3) { left: 45%; width: 200px; height: 200px; animation-duration: 18s; animation-delay: 1s; }
+.burbuja:nth-child(4) { left: 65%; width: 140px; height: 140px; animation-duration: 20s; animation-delay: 4s; }
+.burbuja:nth-child(5) { left: 80%; width: 100px; height: 100px; animation-duration: 14s; animation-delay: 2s; }
+.burbuja:nth-child(6) { left: 90%; width: 160px; height: 160px; animation-duration: 22s; animation-delay: 5s; }
+
+/* ✨ Animación flotante */
+@keyframes flotar {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-600px) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-1200px) scale(0.9);
+    opacity: 0;
+  }
+}
+   /* -----------------------*/
+      /* -----------------------*/
+         /* -----------------------*/
+
+/* === SECCIÓN EQUIPO DE TRABAJO === */
+.team-section {
+  width: 100vw; /* 👈 fuerza que ocupe el 100% del viewport horizontal */
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1FA700 0%, #35d23c 50%, #8BFF8F 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 0; /* 👈 quita el padding lateral */
+  margin: 0; /* 👈 evita márgenes externos */
+  position: relative;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%); /* 👈 asegura que se centre si hay contenedor */
+}
+
+
+.team-container {
+  text-align: center;
+  color: #ffffff;
+  max-width: 900px;
+
+}
+
+.team-title {
+  font-size: 60px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.team-title::before,
+.team-title::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 4px;
+  background: #ffffff;
+  border-radius: 2px;
+}
+
+.team-title::before {
+  left: -80px;
+}
+
+.team-title::after {
+  right: -80px;
+}
+
+.team-video {
+  width: 400px;          /* ajusta el tamaño como quieras */
+  height: auto;
+  border-radius: 20px;
+  filter: drop-shadow(0 0 12px rgba(255,255,255,0.4));
+  transition: transform 0.4s ease, filter 0.4s ease;
+  position: relative;
+margin-top: 10px;
+}
+
+.team-video:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.7));
+}
+
+
+
+
+   /* -----------------------*/
+   /* -----------------------*/
+/* CONTENEDOR DEL CARRUSEL */
+.carrusel-wrapper {
+  z-index: 9999999;
+  width: 100%;
+  max-width: 1000px;
+  height: 600px;
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 👇 POSICIÓN GLOBAL DEL CARRUSEL 👇 */
+  position: relative;
+  top: -700px; /* en lugar de transform */
+  margin-left: 300px; /* 👉 Mueve a la derecha (+) o izquierda (-) */
+}
+
+.tarjeta {
+  position: absolute;
+  width: 330px;
+  height: 440px;
+    background: rgba(233, 255, 233, 0.8); /* 👈 50 % de transparencia */
+
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  padding: 25px;
+  box-sizing: border-box;
+  transition: all 1s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tarjeta .logo-id img {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+}
+
+.tarjeta .foto-id {
+  width: 100px;              /* 🔹 más pequeña */
+  height: 100px;
+  border-radius: 50%;       /* 🔹 forma redonda */
+  overflow: hidden;         /* 🔹 recorta la imagen dentro del círculo */
+  align-self: flex-end;
+  margin-top: -60px;        /* 🔹 ajusta posición más limpia */
+  border: 3px solid #fff;   /* 🔹 borde blanco para resaltar */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 🔹 sombra suave */
+}
+
+.tarjeta .foto-id img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* 🔹 asegura que la imagen llene el círculo */
+  border-radius: 40%;       /* 🔹 redondea la imagen también */
+}
+
+
+.tarjeta .datos h2 {
+  margin: 15px 0 5px 0;
+  font-size: 1.5rem;
+}
+
+.tarjeta .datos h4 {
+  margin: 0 0 12px 0;
+  font-size: 1.2rem;
+  color: #0b8043;
+}
+
+.tarjeta .datos p {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* === POSICIONES 3D === */
+.centro {
+  z-index: 3;
+  transform: translate(0, 0) rotateY(0deg) scale(1);
+  opacity: 1;
+}
+
+.izquierda {
+  z-index: 2;
+  transform: translate(-420px, -100px) rotateY(25deg) scale(0.9);
+  opacity: 0.85;
+}
+
+.derecha {
+  z-index: 2;
+  transform: translate(420px, 100px) rotateY(-25deg) scale(0.9);
+  opacity: 0.85;
+}
+
+.fuera-izq {
+  z-index: 1;
+  transform: translate(-800px, -150px) rotateY(45deg) scale(0.7);
+  opacity: 0;
+}
+
+.fuera-der {
+  z-index: 1;
+  transform: translate(800px, 150px) rotateY(-45deg) scale(0.7);
+  opacity: 0;
+}
+
+/* === BOTONES INDIVIDUALES === */
+.boton-izquierda {
+  position: absolute;
+  top: 50%;
+  left: -180px; /* 👈 Mueve más a la izquierda */
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: #0b8043;
+  font-size: 2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: 0.3s;
+  z-index: 999999;
+}
+
+.boton-derecha {
+  position: absolute;
+  top: 50%;
+  right: -190px; /* 👉 Mueve más a la derecha */
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: #0b8043;
+  font-size: 2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: 0.3s;
+  z-index: 999999;
+}
+
+.boton-izquierda:hover,
+.boton-derecha:hover {
+  background: #0b8043;
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+
+
+
+   /* -----------------------*/
+      /* -----------------------*/
+/* === NUEVA SECCIÓN DE SEGURIDAD === */
+.secure-access-section {
+  position: relative;          /* ✅ puedes cambiar a absolute o fixed si quieres flotarla */
+  z-index: 9999999;            /* ✅ súper al frente */
+  width: 100%;
+  background: linear-gradient(135deg, #1FA700 0%, #35d23c 50%, #8BFF8F 100%);
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+
+  margin-top: -600px; /* <-- prueba valores negativos para subirla más */
+}
+
+/* Parte superior: imagen + texto */
+.secure-access-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  text-align: left;
+  margin-bottom: 50px;
+
+}
+
+.secure-access-img {
+  width: 250px;              /* ✅ Doble de tamaño (antes 150px) */
+  max-width: 100%;
+  transform: translateX(-200px); /* ✅ Mueve solo la imagen más a la izquierda */
+}
+
+.secure-access-text h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); /* 🌟 sombra paralela */
+
+}
+
+.secure-access-text p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); /* 🌟 sombra paralela */
+
+}
+
+
+
+   /* -----------------------*/
+      /* -----------------------*/
+
+/* Parte inferior: footer dividido */
+
+
+.secure-access-footer {
+  z-index: 9999;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
+  padding-top: 40px;
+
+  /* ✅ mueve el footer hacia la derecha */
+  margin-left: 180px; /* ← puedes ajustar este valor */
+  width: calc(100% - 100px); /* evita que se corte */
+  /* ✨ Sombra paralela */
+
+}
+.secure-access-footer::before {
+    z-index: 9999;
+    position: relative;
+  content: "";
+  position: absolute;
+  top: 330px; /* ⬅️ se separa visualmente del contenido */
+  left: 0;
+  width: 100%;
+  height: 20px; /* ⬅️ grosor del "separador" */
+  background: rgba(255, 255, 255, 0.2); /* ⬅️ color del separador (puedes subirlo a 0.3 o 0.4 si quieres más fuerte) */
+  border-top: 3px solid rgba(255, 255, 255, 0.6); /* ✨ línea visible arriba */
+  border-bottom: 3px solid rgba(255, 255, 255, 0.3); /* opcional, da sensación de bloque */
+}
+
+.secure-brand h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+ text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); /* 🌟 sombra paralela */
+
+}
+
+.secure-links h3,
+.secure-contact h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); /* 🌟 sombra paralela */
+
+}
+
+.secure-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.secure-links ul li {
+  margin-bottom: 10px;
+}
+
+.secure-links ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.secure-links ul li a:hover {
+  text-decoration: underline;
+}
+
+.secure-contact p {
+  margin: 8px 0;
+  font-size: 1rem;
+
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .secure-access-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  .secure-access-text h2 {
+    font-size: 2rem;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <img src="./Assets/LOGOLandingpage.png" alt="KON-CHECK Logo" class="logo" />
+
+    <div class="nav-container">
+      <ul class="nav-menu">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#Nosotros">Nosotros</a></li>
+      </ul>
+        <a href="Administrador/IngresarAd/IngresarAd.html" class="cta-button">INGRESAR</a>
+      
+    </div>
+  </header>
+
+  <!-- Título central -->
+  <h1 class="main-title">KON - CHECK</h1>
+
+  <!-- Contenedor del policía -->
+  <div class="policia-container">
+    <img src="./Assets/POLICIALandingpagee.png" alt="Policía KonCheck" class="policia-img" />
+  </div>
+
+  <!-- Overlay con efecto glass -->
+  <div class="glass-overlay">
+    <div class="glass-shape step-1"></div>
+    <div class="glass-shape step-2"></div>
+    <div class="glass-shape step-3"></div>
+  </div>
+
+  <!-- Tarjeta (al frente del glass) -->
+  <div class="officer-section">
+    <div class="info-card">
+      <img src="./Assets/GREENIDCARDLandingPage.png" alt="icono identificación" class="icon-overlay">
+      <h3>Revisión de cédula de ciudadanía para verificación de antecedentes judiciales</h3>
+    </div>
+  </div>
+
+
+  <!-- Contador de usuarios con efecto glass -->
+<div class="user-count-overlay">
+  <div class="user-avatars">
+    <img src="./Assets/1USUARIO.png" alt="Usuario 1" class="user-avatar" />
+    <img src="./Assets/2USUARIO.png" alt="Usuario 2" class="user-avatar" />
+    <img src="./Assets/3USUARIO.png" alt="Usuario 3" class="user-avatar" />
+  </div>
+
+  <div class="user-count">
+    <div class="user-count-number">+100K</div>
+    <div class="user-count-label">Usuarios</div>
+  </div>
+</div>
+
+
+
+<!-- === TARJETAS ID APILADAS === -->
+<section class="id-cards-section">
+  <div class="id-cards-stack">
+
+    <!-- 1RA TARJETA (FONDO) -->
+    <div class="id-card" style="background-image: url('./Assets/CARD1.png');"></div>
+
+    <!-- 2DA TARJETA (INTERMEDIA) -->
+    <div class="id-card" style="background-image: url('./Assets/CARD2.png');"></div>
+
+    <!-- 3RA TARJETA (FRENTE) -->
+    <div class="id-card" style="background-image: url('./Assets/CARD3.png');"></div>
+
+  </div>
+</section>
+
+<div class="security-section">
+  <div class="left-section">
+    <div class="icons">
+      <img src="./Assets/ICONO1.png"  alt="icono policía">
+      <img src="./Assets/ICONO2.png"  alt="icono escudo">
+    </div>
+    <p>Contamos con módulo<br>de seguridad activo<br>para usuarios registrados</p>
+  </div>
+
+  <div class="right-section">
+    <button class="tag">Total Seguridad</button>
+    <hr>
+
+    <div class="stats">
+      <span class="highlight">90M+</span>
+      <div class="text">
+        Registros<br>
+        en todo el<br>
+        continente
+      </div>
+    </div>
+
+    <div class="start-container">
+        <a href="Administrador/IngresarAd/IngresarAd.html"class="start-link">Comenzar</a>
+      <div class="line-short"></div> 
+    </div>
+  </div>
+</div>
+
+
+
+<a href="Administrador/IngresarAd/IngresarAd.html" class="button-container">
+  <div class="button-outline"></div>
+  <div class="button-inner">
+    <span>Iniciar Ahora</span>
+    <span class="arrow">➜</span>
+  </div>
+</a>
+
+
+
+
+
+<!-- === SECCIÓN EQUIPO DE TRABAJO === -->
+<section class="team-section" id="equipo">
+    <!-- 🌟 Fondo de burbujas animadas -->
+  <div class="burbujas-bg">
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+  </div>
+
+  <div class="team-container">
+    <h2 class="team-title">EQUIPO DE TRABAJO</h2>
+    <img src="./Assets/ADNVIDEO.gif" alt="Equipo de trabajo" class="team-gif" />
+  </div>
+</section>
+
+
+
+<!-- === CARRUSEL SECCIÓN EQUIPO DE TRABAJO === -->
+<div class="carrusel-wrapper">
+  <div class="tarjeta izquierda">
+    <div class="logo-id"><img src="./Assets/LOGOLandingpage.png"></div>
+    <div class="foto-id"><img src="./Assets/MAURICIO.jpeg"></div>
+    <div class="datos">
+      <h2>MAURICIO ITURRIZA </h2>
+      <h4>FULL STACK</h4>
+      <p>Desarrolló el sprint 4 y 5 en conjunto con el desarrollador Salim Ferez</p>
+    </div>
+  </div>
+
+  <div class="tarjeta centro">
+    <div class="logo-id"><img src="./Assets/LOGOLandingpage.png"></div>
+    <div class="foto-id"><img src="./Assets/logoO.jpeg"></div>
+    <div class="datos">
+      <h2>ADRIAN</h2>
+      <h4>FULL STACK</h4>
+      <p>Desarrolló el sprint 3.</p>
+    </div>
+  </div>
+
+  <div class="tarjeta derecha">
+    <div class="logo-id"><img src="./Assets/LOGOLandingpage.png"></div>
+    <div class="foto-id"><img src="./Assets/logoO.jpeg"></div>
+    FULL STACK
+    <div class="datos">
+      <h2>SALIM FEREZ</h2>
+      <h4>FULL STACK</h4>
+      <p>Desarrolló el sprint 4 y 5 en conjunto con el desarrollador Mauricio Iturriza</p>
+    </div>
+  </div>
+
+  <div class="tarjeta fuera-der">
+    <div class="logo-id"><img src="./Assets/LOGOLandingpage.png"></div>
+    <div class="foto-id"><img src="./Assets/logoO.jpeg"></div>
+    FULL STACK
+    <div class="datos">
+      <h2>DANNA</h2>
+      <h4>FULL STACK</h4>
+      <p>Desarrolló el sprint 1 y 2 en conjunto con el desarrollador Isabella Castro</p>
+    </div>
+  </div>
+
+  <div class="tarjeta fuera-izq">
+     <div class="logo-id"><img src="./Assets/LOGOLandingpage.png"></div>
+    <div class="foto-id"><img src="./Assets/ISABELLA.jpeg"></div>
+    <div class="datos">
+      <h2>ISABELLA CASTRO</h2>
+      <h4>FULL STACK</h4>
+      <p>Desarrolló el sprint 1 y 2 en conjunto con el desarrollador Danna</p>
+    </div>
+  </div>
+
+  <!-- ✅ Botones FUNCIONALES separados -->
+  <button class="boton-izquierda" id="anterior">&#8592;</button>
+  <button class="boton-derecha" id="siguiente">&#8594;</button>
+</div>
+
+<script>
+  const tarjetas = document.querySelectorAll('.tarjeta');
+  const posiciones = ['izquierda','centro','derecha','fuera-der','fuera-izq'];
+
+  document.getElementById('siguiente').addEventListener('click', () => rotar('siguiente'));
+  document.getElementById('anterior').addEventListener('click', () => rotar('anterior'));
+
+  function rotar(direccion) {
+    tarjetas.forEach(t => {
+      let actual = posiciones.findIndex(pos => t.classList.contains(pos));
+      t.classList.remove(posiciones[actual]);
+      if (direccion === 'siguiente') {
+        actual = (actual + 1) % posiciones.length;
+      } else {
+        actual = (actual - 1 + posiciones.length) % posiciones.length;
+      }
+      t.classList.add(posiciones[actual]);
+    });
+  }
+</script>
+
+
+
+
+<!-- === NUEVA SECCIÓN DE SEGURIDAD === -->
+<section class="secure-access-section">
+  <div class="secure-access-header">
+    <img src="./Assets/AGENTEPOLICIA.png" alt="Agente de seguridad" class="secure-access-img">
+    <div class="secure-access-text">
+      <h2>Protección en un solo paso</h2>
+      <p>Forma parte de <strong>KonSecure</strong> y protege tus datos de forma inteligente.</p>
+    </div>
+  </div>
+
+
+  <!-- === FOOTER === -->
+   
+
+<borderTop>
+
+  <div class="secure-access-footer" id="Nosotros">
+    <div class="secure-brand">
+      <h3>KON- SECURE.</h3>
+      <p>Compañia de registro especializado en estatos judiciales del ciudadano.<br>Los datos que s eusen en el sistema estan protegidos y son de uso confidencial.</p>
+    </div>
+    <div class="secure-links">
+      <h3>Accesos Directos</h3>
+      <ul>
+        <div class="cta-buttons">
+
+        <a href="Administrador/IngresarAd/IngresarAd.html" class="btn btn-primary">Ingresar</a>
+        </div>
+          
+        <li><a href="#">Nuestro Equipo</a></li>
+      </ul>
+    </div>
+    <div class="secure-contact">
+      <h3>Contáctanos</h3>
+      <p>📞 +123 456 7890</p>
+      <p>📧 info@koncheck.com</p>
+    </div>
+  </div>
+</section>
+
+
+</body>
+</html>
+
